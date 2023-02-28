@@ -1,5 +1,7 @@
-package com.management.movie.models;
+package com.management.movie.models.scene;
 
+import com.management.movie.models.Feeling;
+import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.common.HasId;
 import lombok.Getter;
 import lombok.Setter;

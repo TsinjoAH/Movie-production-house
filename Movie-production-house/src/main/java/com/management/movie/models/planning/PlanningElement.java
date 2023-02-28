@@ -1,6 +1,6 @@
 package com.management.movie.models.planning;
 
-import com.management.movie.models.Scene;
+import com.management.movie.models.scene.Scene;
 import lombok.Getter;
 import lombok.Setter;
 

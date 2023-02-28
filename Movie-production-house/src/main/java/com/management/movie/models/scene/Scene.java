@@ -1,12 +1,13 @@
-package com.management.movie.models;
+package com.management.movie.models.scene;
 
+import com.management.movie.models.HourInterval;
+import com.management.movie.models.Movie;
+import com.management.movie.models.MovieSet;
 import com.management.movie.models.common.HasId;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.List;
 
 @Entity

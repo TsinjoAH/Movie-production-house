@@ -72,3 +72,11 @@ ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_feeling FOREI
 ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_movie_character FOREIGN KEY ( character_id ) REFERENCES "public".movie_character( id );
 
 ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_scene FOREIGN KEY ( scene_id ) REFERENCES "public".scene( id );
+
+
+create view v_scene_duration as
+select scene_id, sum(duration) duration from scene_details group by scene_id;
+
+create view v_scene as
+select s.*, duration
+from scene s join v_scene_duration vsd on s.id = vsd.scene_id;

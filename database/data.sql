@@ -85,8 +85,8 @@ INSERT INTO "public".scene_details
 
 
 INSERT INTO "public".scene
-	( id, movie_id, movie_set_id, start_hour, end_hour, scene_number) VALUES
-	( default, 1, 2, '18:00', '20:00', 'MV1SC2' );
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES
+	( default, 1, 2, 14, 'MV1SC2' );
 
 INSERT INTO "public".scene_details
 	( id, character_id, script, duration, scene_id) VALUES
@@ -104,8 +104,8 @@ INSERT INTO "public".scene_details
 	( default, 5, 2, 'Andy est fou de joie', 3, 2 );
 
 INSERT INTO "public".scene
-	( id, movie_id, movie_set_id, start_hour, end_hour, scene_number) VALUES
-	( default, 1, 4, '18:00', '20:00', 'MV1SC3' );
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES
+	( default, 1, 4, 8, 'MV1SC3' );
 
 
 INSERT INTO "public".scene_details
