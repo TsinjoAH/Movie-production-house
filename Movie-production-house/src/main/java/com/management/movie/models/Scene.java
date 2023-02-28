@@ -22,11 +22,9 @@ public class Scene extends HasId {
     @JoinColumn(name = "movie_set_id")
     private MovieSet movieSet;
 
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private Time startHour;
-
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private Time endHour;
+    @ManyToOne
+    @JoinColumn(name = "interval_id")
+    private HourInterval hourInterval;
 
     @Column(name = "scene_number")
     private String sceneNumber;
