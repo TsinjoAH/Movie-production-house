@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "mobie_character")
+@Table(name = "movie_character")
 @Getter
 @Setter
 public class MovieCharacter extends HasName {
