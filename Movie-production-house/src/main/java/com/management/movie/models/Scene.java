@@ -22,11 +22,9 @@ public class Scene extends HasId {
     @JoinColumn(name = "movie_set_id")
     private MovieSet movieSet;
 
-    @Temporal(TemporalType.TIME)
     @DateTimeFormat(pattern = "HH:mm:ss")
     private Time startHour;
 
-    @Temporal(TemporalType.TIME)
     @DateTimeFormat(pattern = "HH:mm:ss")
     private Time endHour;
 
