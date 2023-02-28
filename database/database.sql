@@ -13,7 +13,8 @@ CREATE SEQUENCE "public".scene_id_seq START WITH 1 INCREMENT BY 1;
 CREATE  TABLE "public".feeling ( 
 	id                   integer DEFAULT nextval('feeling_id_seq'::regclass) NOT NULL  ,
 	name                 varchar  NOT NULL  ,
-	CONSTRAINT pk_feeling PRIMARY KEY ( id )
+	CONSTRAINT pk_feeling PRIMARY KEY ( id ),
+	CONSTRAINT unq_feeling UNIQUE ( name ) 
  );
 
 CREATE  TABLE "public".movie ( 
@@ -42,7 +43,9 @@ CREATE  TABLE "public".scene (
 	movie_set_id         integer  NOT NULL  ,
 	start_hour           time  NOT NULL  ,
 	end_hour             time  NOT NULL  ,
-	CONSTRAINT pk_scene PRIMARY KEY ( id )
+	scene_number         varchar  NOT NULL  ,
+	CONSTRAINT pk_scene PRIMARY KEY ( id ),
+	CONSTRAINT unq_scene UNIQUE ( scene_number ) 
  );
 
 CREATE  TABLE "public".scene_details ( 
