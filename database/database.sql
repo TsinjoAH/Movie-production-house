@@ -1,3 +1,5 @@
+drop owned by movie;
+
 CREATE SEQUENCE "public".feeling_id_seq START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".movie_character_id_seq START WITH 1 INCREMENT BY 1;
@@ -37,12 +39,17 @@ CREATE  TABLE "public".movie_set (
 	CONSTRAINT pk_movie_set PRIMARY KEY ( id )
  );
 
-CREATE  TABLE "public".scene ( 
+create table hour_interval (
+    id serial primary key ,
+    start_hour time not null,
+    end_hour time not null check ( end_hour > start_hour )
+);
+
+CREATE  TABLE "public".scene (
 	id                   integer DEFAULT nextval('scene_id_seq'::regclass) NOT NULL  ,
 	movie_id             integer  NOT NULL  ,
 	movie_set_id         integer  NOT NULL  ,
-	start_hour           time  NOT NULL  ,
-	end_hour             time  NOT NULL  ,
+	interval_id          integer  NOT NULL  references hour_interval(id),
 	scene_number         varchar  NOT NULL  ,
 	CONSTRAINT pk_scene PRIMARY KEY ( id ),
 	CONSTRAINT unq_scene UNIQUE ( scene_number ) 
@@ -65,4 +72,3 @@ ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_feeling FOREI
 ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_movie_character FOREIGN KEY ( character_id ) REFERENCES "public".movie_character( id );
 
 ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_scene FOREIGN KEY ( scene_id ) REFERENCES "public".scene( id );
-

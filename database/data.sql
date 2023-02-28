@@ -40,9 +40,34 @@ INSERT INTO "public".feeling
 	( default, 'festif' );
 
 
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('00:00:00', '00:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('01:00:00', '01:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('02:00:00', '02:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('03:00:00', '03:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('04:00:00', '04:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('05:00:00', '05:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('06:00:00', '06:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('07:00:00', '07:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('08:00:00', '08:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('09:00:00', '09:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('10:00:00', '10:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('11:00:00', '11:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('12:00:00', '12:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('13:00:00', '13:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('14:00:00', '14:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('15:00:00', '15:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('16:00:00', '16:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('17:00:00', '17:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('18:00:00', '18:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('19:00:00', '19:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('20:00:00', '20:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('21:00:00', '21:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('22:00:00', '22:59:59');
+INSERT INTO hour_interval (start_hour, end_hour) VALUES ('23:00:00', '23:59:59');
+
 INSERT INTO "public".scene
-	( id, movie_id, movie_set_id, start_hour, end_hour, scene_number) VALUES
-	( default, 1, 1, '14:00', '16:00', 'MV1SC1');
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES
+	( default, 1, 1, 13, 'MV1SC1');
 
 
 INSERT INTO "public".scene_details
