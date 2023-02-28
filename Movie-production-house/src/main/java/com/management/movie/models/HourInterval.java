@@ -12,7 +12,7 @@ import java.sql.Time;
 @Setter
 @Entity(name = "hour_interval")
 public class HourInterval extends HasId {
-    
+
     @Column(name = "start_hour")
     private Time startHour;
 
