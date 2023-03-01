@@ -116,6 +116,10 @@ public class SceneController {
         List<MovieSet> movieSetList=movieSetService.getAll();
         modelAndView.addObject("characterList",characterList);
         modelAndView.addObject("movieSetList",movieSetList);
+        List<Scene> sceneList=sceneService.list(sceneFilter);
+        for(Scene scene:sceneList){
+            scene.setMovieCharacters(scene.getMovieCharacters());
+        }
         sceneReturn.setSceneList(sceneService.list(sceneFilter));
         sceneReturn.setSceneFilter(sceneFilter);
         modelAndView.addObject("sceneReturn", sceneReturn);
