@@ -26,6 +26,9 @@ public class CharacterService {
         catch (Exception e){
             e.printStackTrace();
         }
+        finally {
+            session.close();
+        }
         return characterList;
     }
 }
