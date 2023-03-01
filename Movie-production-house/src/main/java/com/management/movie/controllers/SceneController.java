@@ -27,7 +27,7 @@ public class SceneController {
     @GetMapping("/scene/create")
     public ModelAndView loadCreateForm(ModelAndView modelAndView){
         modelAndView.addObject("sceneForm", sceneService.getInputSceneForm());
-        modelAndView.setViewName("create-scene");
+        modelAndView.setViewName("scenes/create-scene");
         return modelAndView;
     }
 
