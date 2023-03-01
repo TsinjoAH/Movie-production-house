@@ -245,4 +245,17 @@ INSERT INTO "public".scene_details
 	( default, null, null, 'Finalement, ils degustent une glace avant de rentrer', 600, 10 );
 
 
-	
+	INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES ( default, 1, 7, 12, 'MV1SC11' );
+
+	INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 9, null, 'Lili appelle ses amies pour les proposer de venir cuisiner, elles acceptent avec joie', 300, 11 ),
+	( default, 8, null, 'Mendrika arrive en premier, elle apporte des bananes et les deposent immediatement au refrigerateur', 300, 11 ),
+	( default, 9, 1, 'Lili est contente car elle adore les bananes, elle prend Mendrika dans ses bras', 300, 11 ),
+	( default, 10, null, 'Liantsoa arrive ensuite, elle apporte du chocolat et les rangent immediatement au placard', 300, 11 ),
+    ( default, 9,2, 'Lili est encore plus joyeuse car elle adore le chocolat, elle prend ses amies dans ses bras', 300, 11 ),
+	( default, null, null, 'Les trois amies decident alors de faire un gateau a la banane et au chocolat, elles s''y mettent', 600, 11 ),
+	( default, 1, 1, 'Alors que le gateau sort juste du four, Ny Aina arrive et coupe immediatement un morceau pour le manger', 300, 11 ),
+	( default, 10, 9, 'Liantsoa n''est pas contente et dit a Ny Aina d''arreter, mais Ny Aina continue et termine le gateau', 600, 11 ),
+	( default, null,null, 'Finalement, les autres prennent aussi une part et Ny Aina en a rajoute', 400, 11 );
