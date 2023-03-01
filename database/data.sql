@@ -172,3 +172,56 @@ INSERT INTO "public".scene_details
 	( id, day_of_week) VALUES
 	( default, 6 ),
 	( default, 7 );
+
+	INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES ( default, 1, 3, 16, 'MV1SC7' );
+
+	INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 4, null, 'Vinesh arrive dans la cour en scooter et se gare', 600, 7 ),
+	( default, 4, null, 'Vinesh attend que les autres le rejoignent et il tourne en rond', 300, 7 ),
+	( default, 5, 1, 'Andy, tout content, arrive enfin, il a gagne sur FIFA', 180, 7 ),
+	( default, 2, 3, 'Boost arrive aussi, triste d''avoir perdu', 180, 7 ),
+	( default, 4, 5, 'Tout le monde Hasina, Vinesh est nerveux car il est trop long', 600, 7 ),
+	( default, 7, null, 'Hasina arrive enfin et marche tres lentement', 300, 7 ),
+	( default, 5, 6, 'Andy est en colere contre Hasina et veut se battre', 300, 7 ),
+	( default, 2, null, 'Boost tente de calmer Andy', 300, 7 ),
+	( default, null, null, 'Finalement, tout s''arrange et le groupe part ensemble chez Extra Pizza', 180, 7 );
+
+	INSERT INTO "public".movie_set
+	( id, name) VALUES ( default, 'Salle Extra Pizza Iavoloha' );
+
+	UPDATE "public".movie SET start_date = '2023-03-03' ;
+
+	INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES ( default, 1, 11, 16, 'MV1SC8' );
+
+	INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, null, null, 'Le groupe d''amis arrive chez Extra Pizza Iavoloha a pied, ils marchent lentement', 300, 8 ),
+	( default, null, null, 'Ils attendent Vinesh qui arrivera en moto', 300, 8 ),
+	( default, 5, 5, 'Andy se plaint qu''il a faim et decide de commander un jus sans attendre Vinesh ', 300, 8 ),
+	( default, 4, null, 'Vinesh arrive enfin et gare sa moto ', 300, 8 ),
+	( default, null, null, 'Tout le monde peut enfin passer sa commande ', 600, 8 ),
+	( default, null, null, 'En attendant d''etre servi, Andy et Ny Antsa s''affrontent a fifa ', 600, 8 ),
+	( default, 5, 2, 'Andy gagne encore et est fou de joie ', 180, 8 ),
+	( default, null, null, 'Les commandes arrivent enfin et tout le monde deguste sans dire un mot ', 300, 8 );
+
+	UPDATE "public".movie SET title = 'Welcome to ITU' ;
+
+	INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES ( default, 1, 9, 16, 'MV1SC9' );
+
+	INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 2, 10, 'Boost arrive en cours, stresse a l''idee d''affronter l''examen', 300, 9 ),
+	( default, 1, 12, 'Andy arrive aussi en cours, confiant a l''idee d''affronter l''examen', 300, 9 ),
+	( default, 4, 12, 'Vinesh arrive egalement, confiant a l''idee d''affronter l''examen', 300, 9 ),
+	( default, 1, 10, 'Naina arrive egalement, mais un peu stresse', 300, 9 ),
+	( default, 3, 12, 'Tsinjo arrive egalement, tres confiant', 300, 9 ),
+	( default, 6, 12, 'Ny Antsa arrive egalement, tres confiant', 300, 9 ),
+	( default, null, null, 'Le groupe revise ensemble afin d''etre pret', 600, 9 ),
+	( default, null, null, 'L''examen commence enfin et tout le monde se focalise sur sa copie', 600, 9 ),
+	( default, null, null, 'L''examen se termine et tout le monde est soulage', 300, 9 );
+
+	
