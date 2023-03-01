@@ -18,4 +18,9 @@ public class MovieCharacter extends HasName {
     @ManyToOne
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    @Override
+    public void setId(Integer id) throws Exception {
+        this.id = id ;
+    }
 }

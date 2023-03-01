@@ -2,6 +2,7 @@ package com.management.movie.models.scene;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.management.movie.models.HourInterval;
+import com.management.movie.models.Movie;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.MovieSet;
 import com.spring.hibernate.dao.Filter;
@@ -18,15 +19,25 @@ import java.util.List;
 @Setter
 @JsonIgnoreProperties({"conditions", "orders"})
 public class SceneFilter extends Filter {
+    private Movie movie;
     private Time startHour;
     private Time endHour;
     private MovieSet movieSet;
     private MovieCharacter movieCharacter;
+
+    private String sceneNumber;
 //    private
 @Override
 public List<Criterion> getConditions() {
     List<Criterion> conditions = new ArrayList<>();
 //    Criteria criteria=Criteria
+    if(sceneNumber!=null){
+        conditions.add(Restrictions.eq("sceneNumber",sceneNumber));
+    }
+    if(movie!=null){
+        conditions.add(Restrictions.eq("movie",movie));
+    }
+
     if (movieSet != null) {
         conditions.add(Restrictions.eq("movieSet", movieSet));
     }
