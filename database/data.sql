@@ -39,6 +39,12 @@ INSERT INTO "public".feeling
 	( default, 'stresse' ),
 	( default, 'festif' );
 
+INSERT INTO "public".feeling
+	( id, name) VALUES ( default, 'confiant' );
+
+INSERT INTO "public".feeling
+	( id, name) VALUES ( default, 'peur' );
+
 
 INSERT INTO hour_interval (start_hour, end_hour) VALUES ('00:00:00', '00:59:59');
 INSERT INTO hour_interval (start_hour, end_hour) VALUES ('01:00:00', '01:59:59');
@@ -113,3 +119,50 @@ INSERT INTO "public".scene_details
 	( default, 3, 10, 'Tsinjo stresse devant un match de foot', 60, 3 ),
 	( default, 3,1, 'Soudain, il apprend que Vinesh est tombe dans le marais Masay, il est content', 60, 3 ),
 	( default, 3,3, 'Il apprend ensuite que Naina s'' est fait renverse par une voiture, il est triste', 60, 3 );
+
+
+INSERT INTO "public".movie_character
+	( id, name, movie_id) VALUES
+	( default, 'Ny Antsa', 1 ),
+	( default, 'Hasina', 1 ),
+	( default, 'Mendrika', 1 );
+
+
+INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES
+	( default, 1, 9, 12, 'MV1SC4' );
+
+INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 6, 8, 'Ny Antsa se repose en attendant Hasina', 120, 4 ),
+	( default, 7, 5, 'Hasina arrive enfin et se depeche de creer le projet Chocolat sur Git', 180, 4 ),
+	( default, null ,null, 'Tout le monde se donne a fond pour gagner des friandises', 120, 4 );
+
+
+INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES
+	( default, 1, 4, 16, 'MV1SC5' );
+
+
+INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 6, 12, 'Ny Antsa propose a Andy une partie de FIFA', 60, 5 ),
+	( default, 5, 12, 'Andy accepte avec plaisir', 30, 5 ),
+	( default, 6, 6, 'Ny Antsa se fait laminer et accuse Andy de tricher', 60, 5 ),
+	( default, 5, 2, 'Andy est fou de joie', 60, 5 );
+
+
+INSERT INTO "public".movie_character
+	( id, name, movie_id) VALUES
+	( default, 'Lili', 1 ),
+	( default, 'Liantsoa', 1 );
+
+INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES
+	( default, 1, 3, 16, 'MV1SC6' );
+
+INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 9, 1, 'Lili propose a Liantsoa et Mendrika de jouer a cache-cache', 30, 6 ),
+	( default, 8, 2, 'Mendrika accepte avec joie', 30, 6 ),
+	( default, 10, 13, 'Liantsoa a peur de se retrouver seule mais accepte quand meme', 30, 6 );
