@@ -47,6 +47,35 @@
             <!--begin::Menu-->
             <div class="menu menu-column menu-rounded menu-sub-indention px-3" id="#kt_app_sidebar_menu"
                 data-kt-menu="true" data-kt-menu-expand="false">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-title">Scenes</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a href="${pageContext.request.contextPath}/scenes" class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Liste</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a href="${pageContext.request.contextPath}/scene/create" class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Ajouter une scene</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <a href="${pageContext.request.contextPath}/planning" class="menu-link">
+                        <span class="menu-title">Planning</span>
+                    </a>
+                </div>
             </div>
             <!--end::Menu-->
         </div>

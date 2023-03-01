@@ -43,7 +43,7 @@
                 <div class="card-header align-items-center py-0 gap-2">
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5" data-select2-id="select2-data-123-mzxj">
                         <!--begin::Add product-->
-                        <a href="${pageContext.request.contextPath}/scenes/form" class="btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/scene/create" class="btn btn-primary">
                             Ajouter une scène
                         </a>
                         <!--end::Add product-->
