@@ -7,6 +7,7 @@ import com.management.movie.models.scene.SceneView;
 import com.spring.hibernate.dao.HibernateDao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class IntervalService {
         Criteria criteria = session.createCriteria(SceneView.class);
         criteria.add(Restrictions.eq("movie.id", movieId));
         criteria.add(Restrictions.eq("hourInterval.id", intervalId));
+        criteria.addOrder(Order.asc("movieSet.id"));
         return criteria.list();
     }
 
