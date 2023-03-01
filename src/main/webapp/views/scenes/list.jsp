@@ -30,47 +30,7 @@
             <div class="card card-flush">
                 <!--begin::card header-->
                 <div class="card-header align-items-center py-0 gap-2">
-                    <div class="card-title">
-                        <div class="d-flex align-items-center position-relative my-1">
-                            <input class="form-control form-control-solid w-250px ps-14" type="text" placeholder="Rechercher une scene">
-                        </div>
-                    </div>
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5" data-select2-id="select2-data-123-mzxj">
-                        <div class="w-100 mw-150px" data-select2-id="select2-data-122-7ipa">
-                            <!--begin::Select2-->
-                            <select class="form-select form-select-solid select2-hidden-accessible" data-control="select2"
-                                    data-hide-search="true" data-placeholder="Status"
-                                    data-kt-ecommerce-product-filter="status" data-select2-id="select2-data-10-dosa"
-                                    tabindex="-1" aria-hidden="true" data-kt-initialized="1">
-                                <option data-select2-id="select2-data-12-rf4k"></option>
-                                <option value="all" data-select2-id="select2-data-128-d06c">All</option>
-                                <option value="published" data-select2-id="select2-data-129-j8wq">Published</option>
-                                <option value="scheduled" data-select2-id="select2-data-130-q4ue">Scheduled</option>
-                                <option value="inactive" data-select2-id="select2-data-131-ndk1">Inactive</option>
-                            </select>
-                            <span class="select2 select2-container select2-container--bootstrap5 select2-container--below"
-                                  dir="ltr" data-select2-id="select2-data-11-r1r7"
-                                  style="width: 100%;">
-                                <span class="selection">
-                                    <span class="select2-selection select2-selection--single form-select form-select-solid"
-                                          role="combobox" aria-haspopup="true" aria-expanded="false"
-                                          tabindex="0" aria-disabled="false" aria-labelledby="select2-r1wb-container"
-                                          aria-controls="select2-r1wb-container">
-                                        <span class="select2-selection__rendered" id="select2-r1wb-container"
-                                              role="textbox" aria-readonly="true" title="Status">
-                                            <span class="select2-selection__placeholder">Status</span>
-                                        </span>
-                                        <span class="select2-selection__arrow" role="presentation">
-                                            <b role="presentation"></b>
-                                        </span>
-                                    </span>
-                                </span>
-                                <span class="dropdown-wrapper" aria-hidden="true">
-                                </span>
-                            </span>
-                            <!--end::Select2-->
-                        </div>
-
                         <!--begin::Add product-->
                         <a href="${pageContext.request.contextPath}/scenes/form" class="btn btn-primary">
                             Ajouter une scène
@@ -110,9 +70,26 @@
 <%@include file="../includes/layouts/default/bottom.jsp"%>
 <script src="${pageContext.request.contextPath}/resources/assets/plugins/custom/datatables/datatables.bundle.js"></script>
 <script>
+    $("#scenes-list thead tr")
+        .clone(true)
+        .addClass('filters')
+        .appendTo("#scenes-list thead");
     $("#scenes-list").DataTable({
         language: {
             url: "//cdn.datatables.net/plug-ins/1.13.3/i18n/fr-FR.json"
+        },
+        orderCellsTop: true,
+        fixedheader: true,
+        initComplete: function() {
+            let api = this.api();
+            api
+                .columns()
+                .eq(0)
+                .each(function(index) {
+                    let cell = $('.filters th').eq($(api.column(index).header()).index());
+                    let title = $(cell).text();
+                    $(cell).html('<input type="text" class="form-control form-control-solid" placeholder="' + title + '" />');
+                })
         }
     })
 </script>
