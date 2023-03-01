@@ -1,0 +1,148 @@
+{
+  "elements": [
+    {
+      "start": 1677643200000,
+      "end": 1677643380000,
+      "scene": {
+        "id": 3,
+        "movie": {
+          "id": 1,
+          "title": "Naina vs Boost",
+          "startDate": 1677618000000
+        },
+        "movieSet": {
+          "id": 4,
+          "name": "Salon 1"
+        },
+        "hourInterval": {
+          "id": 8,
+          "startHour": "07:00:00",
+          "endHour": "07:59:59"
+        },
+        "sceneNumber": "MV1SC3",
+        "sceneDetails": null,
+        "duration": 180.0
+      }
+    },
+    {
+      "start": 1677657600000,
+      "end": 1677658020000,
+      "scene": {
+        "id": 4,
+        "movie": {
+          "id": 1,
+          "title": "Naina vs Boost",
+          "startDate": 1677618000000
+        },
+        "movieSet": {
+          "id": 9,
+          "name": "Grande Salle ITU"
+        },
+        "hourInterval": {
+          "id": 12,
+          "startHour": "11:00:00",
+          "endHour": "11:59:59"
+        },
+        "sceneNumber": "MV1SC4",
+        "sceneDetails": null,
+        "duration": 420.0
+      }
+    },
+    {
+      "start": 1677661200000,
+      "end": 1677661225000,
+      "scene": {
+        "id": 1,
+        "movie": {
+          "id": 1,
+          "title": "Naina vs Boost",
+          "startDate": 1677618000000
+        },
+        "movieSet": {
+          "id": 1,
+          "name": "Avenue Analakely"
+        },
+        "hourInterval": {
+          "id": 13,
+          "startHour": "12:00:00",
+          "endHour": "12:59:59"
+        },
+        "sceneNumber": "MV1SC1",
+        "sceneDetails": null,
+        "duration": 25.0
+      }
+    },
+    {
+      "start": 1677664800000,
+      "end": 1677664833000,
+      "scene": {
+        "id": 2,
+        "movie": {
+          "id": 1,
+          "title": "Naina vs Boost",
+          "startDate": 1677618000000
+        },
+        "movieSet": {
+          "id": 2,
+          "name": "Marais Masay"
+        },
+        "hourInterval": {
+          "id": 14,
+          "startHour": "13:00:00",
+          "endHour": "13:59:59"
+        },
+        "sceneNumber": "MV1SC2",
+        "sceneDetails": null,
+        "duration": 33.0
+      }
+    },
+    {
+      "start": 1677672000000,
+      "end": 1677672090000,
+      "scene": {
+        "id": 6,
+        "movie": {
+          "id": 1,
+          "title": "Naina vs Boost",
+          "startDate": 1677618000000
+        },
+        "movieSet": {
+          "id": 3,
+          "name": "Cour ITU"
+        },
+        "hourInterval": {
+          "id": 16,
+          "startHour": "15:00:00",
+          "endHour": "15:59:59"
+        },
+        "sceneNumber": "MV1SC6",
+        "sceneDetails": null,
+        "duration": 90.0
+      }
+    },
+    {
+      "start": 1677672090000,
+      "end": 1677672300000,
+      "scene": {
+        "id": 5,
+        "movie": {
+          "id": 1,
+          "title": "Naina vs Boost",
+          "startDate": 1677618000000
+        },
+        "movieSet": {
+          "id": 4,
+          "name": "Salon 1"
+        },
+        "hourInterval": {
+          "id": 16,
+          "startHour": "15:00:00",
+          "endHour": "15:59:59"
+        },
+        "sceneNumber": "MV1SC5",
+        "sceneDetails": null,
+        "duration": 210.0
+      }
+    }
+  ]
+}
