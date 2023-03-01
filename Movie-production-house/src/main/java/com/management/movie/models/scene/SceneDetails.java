@@ -1,6 +1,7 @@
 package com.management.movie.models.scene;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.management.movie.models.Feeling;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.common.HasId;
@@ -30,7 +31,7 @@ public class SceneDetails extends HasId {
     private Double duration;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JoinColumn(name = "scene_id")
     private Scene scene;
 }
