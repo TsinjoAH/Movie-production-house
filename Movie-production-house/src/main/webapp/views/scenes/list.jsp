@@ -52,39 +52,43 @@
                             <div id="accordion-body" class="accordion-collapse collapse show" aria-labelledby="accordion-header"
                                  data-bs-parent="#accordion-1">
                                 <div class="accordion-body">
-                                    <div class="mb-5">
-                                        <label>Nom de la scene :</label>
-                                        <input type="text" class="form-control" placeholder="Nom de la scene">
-                                    </div>
-                                    <div class="mb-5">
-                                        <label>Plateaux</label>
-                                        <select class="form-select" data-control="select2"
-                                                data-close-on-select="false" data-placeholder="Plateaux"
-                                                data-allow-clear="true" multiple="multiple">
-                                            <option></option>
-                                            <option value="1">Option 1</option>
-                                            <option value="2">Option 2</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-5">
-                                        <label>Durée estimée minimum :</label>
-                                        <input type="time" class="form-control" id="estimated-time-picker-min" placeholder="Durée estimée minimum">
-                                    </div>
-                                    <div class="mb-5">
-                                        <label>Durée estimée maximum :</label>
-                                        <input type="time" class="form-control" id="estimated-time-picker-max" placeholder="Durée estimée maximum">
-                                    </div>
-                                    <div class="mb-5">
-                                        <label>Tranche horraire idéale minimum :</label>
-                                        <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum">
-                                    </div>
-                                    <div class="mb-5">
-                                        <label>Tranche horraire idéale maximum :</label>
-                                        <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum">
-                                    </div>
-                                    <span class="btn btn-primary">
-                                        Filtrer
-                                    </span>
+                                    <form action="${pageContext.request.contextPath}/scene/filter">
+                                        <div class="mb-5">
+                                            <label>Numero de la scene :</label>
+                                            <input id="scene-number" type="text" class="form-control" placeholder="Nom de la scene">
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Plateau</label>
+                                            <select id="movie-set" class="form-select" data-control="select2"
+                                                    data-placeholder="Plateau"
+                                                    data-allow-clear="true">
+                                                <option></option>
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Acteur</label>
+                                            <select id="actor" class="form-select" data-control="select2"
+                                                    data-placeholder="Acteur"
+                                                    data-allow-clear="true">
+                                                <option></option>
+                                                <option value="1">Option 1</option>
+                                                <option value="2">Option 2</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Tranche horraire idéale minimum :</label>
+                                            <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum">
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Tranche horraire idéale maximum :</label>
+                                            <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum">
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">
+                                            Filtrer
+                                        </button>
+                                    </form>
                                 </div>
                         </div>
                     </div>
@@ -115,38 +119,29 @@
 </div>
 <!--end::main-->
 <%@include file="../includes/layouts/default/bottom.jsp"%>
-<script src="${pageContext.request.contextPath}/resources/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<script>
-    $("#scenes-list").DataTable({
-        language: {
-            url: "//cdn.datatables.net/plug-ins/1.13.3/i18n/fr-FR.json"
-        }
-    })
-</script>
-<script>
-    $("#estimated-time-picker-min").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr:true
-    });
-    $("#estimated-time-picker-max").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr:true
-    });
-    $("#ideal-hour-min").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr:true
-    });
-    $("#ideal-hour-max").flatpickr({
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr:true
-    });
-</script>
-
+    <script>
+        $("#estimated-time-picker-min").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+        $("#estimated-time-picker-max").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+        $("#ideal-hour-min").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+        $("#ideal-hour-max").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+    </script>
