@@ -1,10 +1,14 @@
 package com.management.movie.controllers;
 
 import com.management.movie.models.Movie;
+import com.management.movie.models.MovieCharacter;
+import com.management.movie.models.MovieSet;
 import com.management.movie.models.scene.Scene;
 import com.management.movie.models.scene.SceneFilter;
 import com.management.movie.models.scene.SceneReturn;
 import com.management.movie.models.scene.view.SceneInput;
+import com.management.movie.services.CharacterService;
+import com.management.movie.services.MovieSetService;
 import com.management.movie.services.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,12 +21,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class SceneController {
 
     @Autowired
     SceneService sceneService;
+
+    @Autowired
+    CharacterService characterService;
+
+    @Autowired
+    MovieSetService movieSetService;
 
     @GetMapping("/scene/create")
     public ModelAndView loadCreateForm(ModelAndView modelAndView){
@@ -55,6 +66,19 @@ public class SceneController {
         model.addObject("sceneForm", sceneService.getInputSceneForm());
         model.setViewName("scenes/update-scene");
         return model;
+    }
+
+    @GetMapping("/scene/load")
+    public ModelAndView list() throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        Movie movie=new Movie();
+        movie.setId(1);
+        List<MovieCharacter> characterList=characterService.getByMovie(movie);
+        List<MovieSet> movieSetList=movieSetService.getAll();
+        modelAndView.addObject("characterList",characterList);
+        modelAndView.addObject("movieSetList",movieSetList);
+        modelAndView.setViewName("scenes/list");
+        return modelAndView;
     }
 
     @PostMapping("/scene/update")
