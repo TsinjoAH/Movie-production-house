@@ -30,7 +30,10 @@ public class SceneBase extends HasId {
     @Column(name = "scene_number")
     private String sceneNumber;
 
-    @Transient
-    private List<SceneDetails> sceneDetails;
-
+    public void setSceneNumber(String sceneNumber) throws Exception {
+        if(sceneNumber == null || sceneNumber.trim().equals("")){
+            throw new Exception("Scene number is required when creating a scene.");
+        }
+        this.sceneNumber = sceneNumber;
+    }
 }
