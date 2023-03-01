@@ -1,4 +1,15 @@
+<%@ page import="com.management.movie.models.MovieSet" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.management.movie.models.MovieCharacter" %>
+<%@ page import="com.management.movie.models.scene.SceneReturn" %>
+<%@ page import="com.management.movie.models.scene.Scene" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
+<%
+    List<MovieSet> movieSets = (List<MovieSet>) request.getAttribute("movieSetList");
+    List<MovieCharacter> characters = (List<MovieCharacter>) request.getAttribute("characterList");
+    SceneReturn sceneReturn = (SceneReturn) request.getAttribute("sceneReturn");
+%>
+
 <!--begin::main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -32,7 +43,7 @@
                 <div class="card-header align-items-center py-0 gap-2">
                     <div class="card-toolbar flex-row-fluid justify-content-end gap-5" data-select2-id="select2-data-123-mzxj">
                         <!--begin::Add product-->
-                        <a href="${pageContext.request.contextPath}/scenes/form" class="btn btn-primary">
+                        <a href="${pageContext.request.contextPath}/scene/create" class="btn btn-primary">
                             Ajouter une scène
                         </a>
                         <!--end::Add product-->
@@ -41,20 +52,78 @@
                 <!--end::card header-->
                 <!--begin::card body-->
                 <div class="card-body pt-0">
+                    <div class="accordion" id="accordion-1">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="accordion-header">
+                                <button class="accordion-button fs-4 fw-semibold" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#accordion-body" aria-expanded="true" aria-controls="accordion-body">
+                                    Filtres
+                                </button>
+                            </h2>
+                            <div id="accordion-body" class="accordion-collapse collapse show" aria-labelledby="accordion-header"
+                                 data-bs-parent="#accordion-1">
+                                <div class="accordion-body">
+                                    <form method="get">
+                                        <div class="mb-5">
+                                            <label>Numero de la scene :</label>
+                                            <input id="scene-number" type="text" class="form-control" placeholder="Nom de la scene" name="sceneNumber">
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Plateau</label>
+                                            <select id="movie-set" class="form-select" name="movieSet.id"
+                                                    data-control="select2" data-placeholder="Plateau"
+                                                    data-allow-clear="true">
+                                                <% for(MovieSet movieSet : movieSets) { %>
+                                                <option value="<%=movieSet.getId()%>"><%=movieSet.getName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Acteur</label>
+                                            <select id="actor" class="form-select" data-control="select2" name="movieCharacter.id"
+                                                    data-placeholder="Acteur"
+                                                    data-allow-clear="true">
+                                                <% for(MovieCharacter character : characters) { %>
+                                                <option value="<%=character.getId()%>"><%=character.getName()%></option>
+                                                <% } %>
+                                            </select>
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Tranche horraire idéale minimum :</label>
+                                            <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum" name="startHour">
+                                        </div>
+                                        <div class="mb-5">
+                                            <label>Tranche horraire idéale maximum :</label>
+                                            <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum" name="endHour">
+                                        </div>
+                                        <button class="btn btn-primary" type="submit">
+                                            Filtrer
+                                        </button>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
                     <!--begin::table-->
                     <table class="table table-row-bordered gy-5" id="scenes-list">
                         <thead>
                             <tr class="fw-semibold fs-6 text-muted">
                                 <th>Numéro de scène</th>
-                                <th>Nombre d'acteurs</th>
+                                <th>Acteurs</th>
                                 <th>Plateau</th>
-                                <th>Durée estimée</th>
                                 <th>Début de la tranche horraire idéale</th>
                                 <th>Fin de la tranche horraire idéale</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            <%for(Scene scene : sceneReturn.getSceneList()) {%>
+                                <tr>
+                                    <td><%=scene.getSceneNumber()%></td>
+                                    <td> - </td>
+                                    <td><%=scene.getMovieSet().getName()%></td>
+                                    <td><%=scene.getHourInterval().getStartHour()%></td>
+                                    <td><%=scene.getHourInterval().getEndHour()%></td>
+                                </tr>
+                            <%}%>
                         </tbody>
                     </table>
                     <!--end::table-->
@@ -68,29 +137,29 @@
 </div>
 <!--end::main-->
 <%@include file="../includes/layouts/default/bottom.jsp"%>
-<script src="${pageContext.request.contextPath}/resources/assets/plugins/custom/datatables/datatables.bundle.js"></script>
-<script>
-    $("#scenes-list thead tr")
-        .clone(true)
-        .addClass('filters')
-        .appendTo("#scenes-list thead");
-    $("#scenes-list").DataTable({
-        language: {
-            url: "//cdn.datatables.net/plug-ins/1.13.3/i18n/fr-FR.json"
-        },
-        orderCellsTop: true,
-        fixedheader: true,
-        initComplete: function() {
-            let api = this.api();
-            api
-                .columns()
-                .eq(0)
-                .each(function(index) {
-                    let cell = $('.filters th').eq($(api.column(index).header()).index());
-                    let title = $(cell).text();
-                    $(cell).html('<input type="text" class="form-control form-control-solid" placeholder="' + title + '" />');
-                })
-        }
-    })
-</script>
-
+    <script>
+        $("#estimated-time-picker-min").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+        $("#estimated-time-picker-max").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+        $("#ideal-hour-min").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+        $("#ideal-hour-max").flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr:true
+        });
+    </script>
