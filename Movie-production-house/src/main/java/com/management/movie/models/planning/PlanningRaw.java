@@ -17,14 +17,14 @@ public class PlanningRaw {
     HourInterval interval;
     List<SceneView> scenes;
 
-    public List<PlanningElement> getElements(Timestamp startDate) {
+    public List<PlanningElement> getElements(Timestamp startDate, List<Integer> dayOff) {
         List<PlanningElement> elements = new ArrayList<>();
 
         LocalDateTime start = getStartFrom(startDate.toLocalDateTime().toLocalDate());
 
         for (SceneView scene: scenes) {
             LocalDateTime end = start.plusSeconds(scene.getDuration().intValue());
-            if (end.toLocalTime().isAfter(interval.getEndHour().toLocalTime())) {
+            while (!isValid(end, dayOff)) {
                 start = getStartFrom(start.plusDays(1).toLocalDate());
                 end = getEndFrom(start, scene);
             }
@@ -37,6 +37,18 @@ public class PlanningRaw {
             start = end;
         }
         return elements;
+    }
+
+    private boolean isValid(LocalDateTime end, List<Integer> dayOff) {
+        if (!end.toLocalTime().isAfter(interval.getEndHour().toLocalTime())) {
+            return false;
+        }
+        for (int d: dayOff) {
+            if (end.getDayOfWeek().getValue() == d) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private LocalDateTime getEndFrom(LocalDateTime start, SceneView scene) {

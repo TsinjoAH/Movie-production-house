@@ -9,6 +9,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,4 +38,8 @@ public class IntervalService {
         return criteria.list();
     }
 
+    public List<Integer> getDayOff(Session session) {
+        Query<Integer> query = session.createNativeQuery("select day_of_week from break_day");
+        return query.list();
+    }
 }

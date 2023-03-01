@@ -1,3 +1,5 @@
+drop owned by movie;
+
 CREATE SEQUENCE "public".feeling_id_seq START WITH 1 INCREMENT BY 1;
 
 CREATE SEQUENCE "public".hour_interval_id_seq START WITH 1 INCREMENT BY 1;

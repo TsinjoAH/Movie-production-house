@@ -38,7 +38,10 @@ public class MovieService {
 
             // create list of elements
             for (PlanningRaw raw : raws) {
-                elements.addAll(raw.getElements(new Timestamp(movie.getStartDate().getTime())));
+                elements.addAll(raw.getElements(
+                    new Timestamp(movie.getStartDate().getTime()),
+                    intervalService.getDayOff(session)
+                ));
             }
 
             planning.setElements(elements);
