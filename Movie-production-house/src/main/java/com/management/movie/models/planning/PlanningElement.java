@@ -1,6 +1,7 @@
 package com.management.movie.models.planning;
 
 import com.management.movie.models.scene.Scene;
+import com.management.movie.models.scene.SceneView;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,9 @@ public class PlanningElement {
 
     private Timestamp start, end;
 
-    private Scene scene;
+    private SceneView scene;
 
-    public PlanningElement(Timestamp start, Timestamp end, Scene scene) {
+    public PlanningElement(Timestamp start, Timestamp end, SceneView scene) {
         setStart(start);
         setEnd(end);
         setScene(scene);
