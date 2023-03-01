@@ -6,6 +6,7 @@ import com.spring.hibernate.dao.HibernateDao;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 import org.hibernate.query.Query;
+import com.management.movie.models.scene.SceneDetailsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +42,9 @@ public class SceneDetailsService {
         query.executeUpdate();
     }
 
+    public List<SceneDetails> getByScene(Scene scene){
+        SceneDetailsFilter sceneDetailsFilter=new SceneDetailsFilter();
+        sceneDetailsFilter.setScene(scene);
+        return hibernateDao.findBy(SceneDetails.class,sceneDetailsFilter);
+    }
 }

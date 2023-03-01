@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.hibernate.Transaction;
+import com.management.movie.models.scene.SceneFilter;
 import java.util.List;
 
 @Service
@@ -98,4 +99,11 @@ public class SceneService {
         return sceneForm;
     }
 
+    public List<Scene> list(SceneFilter sceneFilter){
+        List<Scene> sceneList= dao.findBy(Scene.class,sceneFilter);
+        for(Scene scene:sceneList){
+            scene.setSceneDetails(sceneDetailsService.getByScene(scene));
+        }
+        return sceneList;
+    }
 }

@@ -1,5 +1,7 @@
 package com.management.movie.models.scene;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.management.movie.models.Feeling;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.common.HasId;

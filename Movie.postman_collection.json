@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "8051ddb2-c663-4eea-bc0d-a72546dd9a42",
+		"name": "Movie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SceneList",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"startHour\":\"08:00:00\",\r\n        \"endHour\":\"13:00:00\",\r\n        \"movieSet\":{\r\n            \"id\":1\r\n        }\r\n        \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/scenes?startHour=08:00:00&endHour=18:00:00&movieSet.id=1&movieCharacter.id=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"scenes"
+					],
+					"query": [
+						{
+							"key": "startHour",
+							"value": "08:00:00"
+						},
+						{
+							"key": "endHour",
+							"value": "18:00:00"
+						},
+						{
+							"key": "movieSet.id",
+							"value": "1"
+						},
+						{
+							"key": "movieCharacter.id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

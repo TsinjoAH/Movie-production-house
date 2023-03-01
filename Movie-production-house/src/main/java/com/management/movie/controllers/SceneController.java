@@ -2,9 +2,13 @@ package com.management.movie.controllers;
 
 import com.management.movie.models.Movie;
 import com.management.movie.models.scene.Scene;
+import com.management.movie.models.scene.SceneFilter;
+import com.management.movie.models.scene.SceneReturn;
 import com.management.movie.models.scene.view.SceneInput;
 import com.management.movie.services.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -70,5 +74,11 @@ public class SceneController {
         return loadUpdateForm(modelAndView, sceneId);
     }
 
-
+    @GetMapping("/scene/filter")
+    public ResponseEntity<?> list(SceneFilter sceneFilter){
+        SceneReturn sceneReturn=new SceneReturn();
+        sceneReturn.setSceneList(sceneService.list(sceneFilter));
+        sceneReturn.setSceneFilter(sceneFilter);
+        return new ResponseEntity<>(sceneReturn, HttpStatus.OK);
+    }
 }
