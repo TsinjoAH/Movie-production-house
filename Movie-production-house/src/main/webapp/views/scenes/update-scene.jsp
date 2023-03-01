@@ -17,9 +17,12 @@
         <p>
             Location :
             <select name="movieSet">
+                <option value="" >--Location--</option>
                 <% for (MovieSet movieSet : sceneForm.getMovieSets()
-                        ) { %>
-                    <option value="<%= movieSet.getId() %>" > <%= movieSet.getName() %> </option>
+                        ) {
+                    String selected = (movieSet.getId() == scene.getMovieSet().getId()) ? "selected = 'true'" : "";
+                %>
+                    <option  <%= selected %> value="<%= movieSet.getId() %>" > <%= movieSet.getName() %> </option>
                 <% } %>
             </select>
         </p>
@@ -29,9 +32,12 @@
         <p>
             Ideal hour :
             <select name="idealHour" id="">
+                <option value="" > --Hour-- </option>
                 <% for (HourInterval hourInterval : sceneForm.getHourIntervals()
-                ) { %>
-                    <option value=" <%= hourInterval.getId() %>" > <%= hourInterval.getStartHour()+" - "+hourInterval.getEndHour() %> </option>
+                ) {
+                    String selected = (hourInterval.getId() == scene.getHourInterval().getId()) ? "selected = 'true'" : "";
+                %>
+                    <option <%= selected %> value=" <%= hourInterval.getId() %>" > <%= hourInterval.getStartHour()+" - "+hourInterval.getEndHour() %> </option>
                 <% } %>
         </select>
         </p>
@@ -40,27 +46,26 @@
             <p>
                 Character :
                 <select name="characters" id="">
-                    <% if(detail.getCharacter() != null) { %>
-                        <option value="<%= detail.getCharacter().getId() %>"><%= detail.getCharacter().getName() %></option>
-                    <% } else { %>
-                        <option value="">--Character--</option>
-                    <% } %>
+                    <option value="">--Character--</option>
                     <% for (MovieCharacter character : sceneForm.getCharacters()
-                    ) { %>
-                    <option value="<%= character.getId() %>" > <%= character.getName() %> </option>
+                    ) {
+                        String selected = ( detail.getCharacter() != null && detail.getCharacter().getId()
+                                == character.getId()) ? "selected = 'true'" : "";
+                    %>
+                    <option <%= selected %> value="<%= character.getId() %>" > <%= character.getName() %> </option>
                     <% } %>
                 </select>
 
                 Feeling :
                 <select name="feelings" id="">
-                    <% if(detail.getFeeling() != null) { %>
-                         <option value="<%= detail.getFeeling().getId() %>"><%= detail.getFeeling().getName()  %> </option>
-                    <% } else{ %>
-                        <option value="">--Feeling--</option>
-                    <% } %>
+                    <option value="">--Feeling--</option>
                     <% for (Feeling feeling : sceneForm.getFeelings()
-                    ) { %>
-                    <option value="<%= feeling.getId() %>" > <%= feeling.getName() %> </option>
+                    ) {
+                        String selected = ( detail.getFeeling() != null && detail.getFeeling().getId()
+                                == feeling.getId()) ? "selected = 'true' " : "";
+
+                    %>
+                    <option <%= selected %> value="<%= feeling.getId() %>" > <%= feeling.getName() %> </option>
                     <% } %>
                 </select>
 

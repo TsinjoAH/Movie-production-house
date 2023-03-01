@@ -14,6 +14,7 @@
         <p>
             Location :
             <select name="movieSet">
+                <option value="" >--Location--</option>
                 <% for (MovieSet movieSet : sceneForm.getMovieSets()
                         ) { %>
                     <option value="<%= movieSet.getId() %>" > <%= movieSet.getName() %> </option>
@@ -25,6 +26,7 @@
         </p>
         <p>
             Ideal hour :
+            <option value="" > --Hour-- </option>
             <select name="idealHour" id="">
                 <% for (HourInterval hourInterval : sceneForm.getHourIntervals()
                 ) { %>
@@ -55,7 +57,6 @@
 
                 Script :
                 <textarea name="scripts" id="" cols="30" rows="10"></textarea>
-                
                 Duration : <input type="text" name="durations" id="">
             </p>
         <% } %>
