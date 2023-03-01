@@ -105,4 +105,21 @@ public class SceneController {
         sceneReturn.setSceneFilter(sceneFilter);
         return new ResponseEntity<>(sceneReturn, HttpStatus.OK);
     }
+
+    @GetMapping("/scene/filterv2")
+    public ModelAndView listv2(SceneFilter sceneFilter) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        SceneReturn sceneReturn=new SceneReturn();
+        Movie movie=new Movie();
+        movie.setId(1);
+        List<MovieCharacter> characterList=characterService.getByMovie(movie);
+        List<MovieSet> movieSetList=movieSetService.getAll();
+        modelAndView.addObject("characterList",characterList);
+        modelAndView.addObject("movieSetList",movieSetList);
+        sceneReturn.setSceneList(sceneService.list(sceneFilter));
+        sceneReturn.setSceneFilter(sceneFilter);
+        modelAndView.addObject("sceneReturn", sceneReturn);
+        modelAndView.setViewName("scenes/list");
+        return modelAndView;
+    }
 }

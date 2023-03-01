@@ -102,7 +102,7 @@ public class SceneService {
     public List<Scene> list(SceneFilter sceneFilter){
         List<Scene> sceneList= dao.findBy(Scene.class,sceneFilter);
         for(Scene scene:sceneList){
-            scene.setSceneDetails(sceneDetailsService.getByScene(scene));
+            scene.setSceneDetails(sceneDetailsService.findBySceneId(scene.getId()));
         }
         return sceneList;
     }
