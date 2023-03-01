@@ -13,4 +13,6 @@ public class HasName extends HasId {
 
     @Column
     private String name;
+
+
 }
