@@ -224,4 +224,25 @@ INSERT INTO "public".scene_details
 	( default, null, null, 'L''examen commence enfin et tout le monde se focalise sur sa copie', 600, 9 ),
 	( default, null, null, 'L''examen se termine et tout le monde est soulage', 300, 9 );
 
+	UPDATE "public".movie_character SET name = 'Ny Aina' where id = 1 ;
+
+	UPDATE "public".scene_details SET script = 'Ny Aina salue Boost' where id = 1 ;
+	UPDATE "public".scene_details SET script = 'Une voiture passe et Ny Aina monte dedans' where id = 3 ;
+	UPDATE "public".scene_details SET script = 'Il apprend ensuite que Ny Aina a perdu a fifa, il est triste' where id = 10 ;
+	UPDATE "public".scene_details SET script = 'Ny Aina arrive egalement, mais un peu stresse' where id = 41 ;
+
+	INSERT INTO "public".scene
+	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES ( default, 1, 1, 12, 'MV1SC10' );
+
+	INSERT INTO "public".scene_details
+	( id, character_id, feeling_id, script, duration, scene_id) VALUES
+	( default, 3, null, 'Tsinjo arrive a Analakely, il descend du bus et attend les autres devant l''hotel de ville', 300, 10 ),
+	( default, 4, null, 'Vinesh arrive egalement, il arrive a moto et se gare sur l''avenue', 300, 10 ),
+	( default, 5, null, 'Andy et Boost arrivent dans la voiture de Boost, Andy sort en premier tres joyeux a l''idee d''acheter une rtx', 300, 10 ),
+	( default, null, null, 'Le groupe marche dans toute l''avenue a la recherche d''une RTX', 600, 10 ),
+	( default, null, null, 'Ils testent d''abord un magasin mais ils ne vendent que des RTX bas de gamme', 600, 10 ),
+	( default, null, null, 'Ils trouvent enfin la RTX tant convoitee, et ils repartent avec un exemplaire chacun', 600, 10 ),
+	( default, null, null, 'Finalement, ils degustent une glace avant de rentrer', 600, 10 );
+
+
 	
