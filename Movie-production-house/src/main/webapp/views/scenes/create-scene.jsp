@@ -3,7 +3,6 @@
 <%@ page import="com.management.movie.models.MovieCharacter" %>
 <%@ page import="com.management.movie.models.Feeling" %>
 <%@ page import="com.management.movie.models.HourInterval" %>
-<!doctype html>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
     SceneForm sceneForm = (SceneForm) request.getAttribute("sceneForm");

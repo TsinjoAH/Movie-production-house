@@ -53,7 +53,7 @@ public class SceneController {
     public ModelAndView loadUpdateForm (ModelAndView model, @RequestParam Integer sceneId){
         model.addObject("scene", sceneService.findById(sceneId));
         model.addObject("sceneForm", sceneService.getInputSceneForm());
-        model.setViewName("update-scene");
+        model.setViewName("scenes/update-scene");
         return model;
     }
 
