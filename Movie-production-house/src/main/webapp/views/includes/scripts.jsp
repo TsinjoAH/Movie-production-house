@@ -1,0 +1,2 @@
+<script src="${pageContext.request.contextPath}/resources/assets/plugins/global/plugins.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/scripts.bundle.js"></script>
