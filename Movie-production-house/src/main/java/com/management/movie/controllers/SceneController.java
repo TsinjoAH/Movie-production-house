@@ -106,7 +106,7 @@ public class SceneController {
         return new ResponseEntity<>(sceneReturn, HttpStatus.OK);
     }
 
-    @GetMapping("/scene/filterv2")
+    @GetMapping("/scenes")
     public ModelAndView listv2(SceneFilter sceneFilter) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         SceneReturn sceneReturn=new SceneReturn();

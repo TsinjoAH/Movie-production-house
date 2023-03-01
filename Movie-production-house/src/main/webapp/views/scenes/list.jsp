@@ -1,4 +1,15 @@
+<%@ page import="com.management.movie.models.MovieSet" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.management.movie.models.MovieCharacter" %>
+<%@ page import="com.management.movie.models.scene.SceneReturn" %>
+<%@ page import="com.management.movie.models.scene.Scene" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
+<%
+    List<MovieSet> movieSets = (List<MovieSet>) request.getAttribute("movieSetList");
+    List<MovieCharacter> characters = (List<MovieCharacter>) request.getAttribute("characterList");
+    SceneReturn sceneReturn = (SceneReturn) request.getAttribute("sceneReturn");
+%>
+
 <!--begin::main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -52,38 +63,38 @@
                             <div id="accordion-body" class="accordion-collapse collapse show" aria-labelledby="accordion-header"
                                  data-bs-parent="#accordion-1">
                                 <div class="accordion-body">
-                                    <form action="${pageContext.request.contextPath}/scene/filter">
+                                    <form method="get">
                                         <div class="mb-5">
                                             <label>Numero de la scene :</label>
-                                            <input id="scene-number" type="text" class="form-control" placeholder="Nom de la scene">
+                                            <input id="scene-number" type="text" class="form-control" placeholder="Nom de la scene" name="sceneNumber">
                                         </div>
                                         <div class="mb-5">
                                             <label>Plateau</label>
-                                            <select id="movie-set" class="form-select" data-control="select2"
-                                                    data-placeholder="Plateau"
+                                            <select id="movie-set" class="form-select" name="movieSet.id"
+                                                    data-control="select2" data-placeholder="Plateau"
                                                     data-allow-clear="true">
-                                                <option></option>
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
+                                                <% for(MovieSet movieSet : movieSets) { %>
+                                                <option value="<%=movieSet.getId()%>"><%=movieSet.getName()%></option>
+                                                <% } %>
                                             </select>
                                         </div>
                                         <div class="mb-5">
                                             <label>Acteur</label>
-                                            <select id="actor" class="form-select" data-control="select2"
+                                            <select id="actor" class="form-select" data-control="select2" name="movieCharacter.id"
                                                     data-placeholder="Acteur"
                                                     data-allow-clear="true">
-                                                <option></option>
-                                                <option value="1">Option 1</option>
-                                                <option value="2">Option 2</option>
+                                                <% for(MovieCharacter character : characters) { %>
+                                                <option value="<%=character.getId()%>"><%=character.getName()%></option>
+                                                <% } %>
                                             </select>
                                         </div>
                                         <div class="mb-5">
                                             <label>Tranche horraire idéale minimum :</label>
-                                            <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum">
+                                            <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum" name="startHour">
                                         </div>
                                         <div class="mb-5">
                                             <label>Tranche horraire idéale maximum :</label>
-                                            <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum">
+                                            <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum" name="endHour">
                                         </div>
                                         <button class="btn btn-primary" type="submit">
                                             Filtrer
@@ -97,15 +108,22 @@
                         <thead>
                             <tr class="fw-semibold fs-6 text-muted">
                                 <th>Numéro de scène</th>
-                                <th>Nombre d'acteurs</th>
+                                <th>Acteurs</th>
                                 <th>Plateau</th>
-                                <th>Durée estimée</th>
                                 <th>Début de la tranche horraire idéale</th>
                                 <th>Fin de la tranche horraire idéale</th>
                             </tr>
                         </thead>
                         <tbody>
-
+                            <%for(Scene scene : sceneReturn.getSceneList()) {%>
+                                <tr>
+                                    <td><%=scene.getSceneNumber()%></td>
+                                    <td> - </td>
+                                    <td><%=scene.getMovieSet().getName()%></td>
+                                    <td><%=scene.getHourInterval().getStartHour()%></td>
+                                    <td><%=scene.getHourInterval().getEndHour()%></td>
+                                </tr>
+                            <%}%>
                         </tbody>
                     </table>
                     <!--end::table-->
