@@ -40,15 +40,10 @@ public class PlanningRaw {
     }
 
     private boolean isValid(LocalDateTime end, List<Integer> dayOff) {
-        if (!end.toLocalTime().isAfter(interval.getEndHour().toLocalTime())) {
+        if (end.toLocalTime().isAfter(interval.getEndHour().toLocalTime())) {
             return false;
         }
-        for (int d: dayOff) {
-            if (end.getDayOfWeek().getValue() == d) {
-                return false;
-            }
-        }
-        return true;
+        return !dayOff.contains(end.getDayOfWeek().getValue());
     }
 
     private LocalDateTime getEndFrom(LocalDateTime start, SceneView scene) {
