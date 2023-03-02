@@ -30,8 +30,9 @@ public class SceneDetails extends HasId {
     @Column
     private Double duration;
 
-    @Column(name = "scene_id")
-    private Integer sceneId;
+    @ManyToOne
+    @JoinColumn(name = "scene_id")
+    private Scene scene;
 
     public SceneDetails() {
     }

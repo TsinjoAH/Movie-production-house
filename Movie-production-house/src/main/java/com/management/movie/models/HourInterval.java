@@ -3,6 +3,7 @@ package com.management.movie.models;
 import com.management.movie.models.common.HasId;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

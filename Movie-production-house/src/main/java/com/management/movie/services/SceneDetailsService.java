@@ -27,7 +27,7 @@ public class SceneDetailsService {
 
     public List<SceneDetails> findBySceneId(Session session, Integer sceneId){
         SceneDetails sceneDetails = new SceneDetails();
-        sceneDetails.setSceneId(sceneId);
+        sceneDetails.setScene(hibernateDao.findById(Scene.class, sceneId));
         Example example = Example.create(sceneDetails);
         List<SceneDetails> results = session.createCriteria(SceneDetails.class)
                 .add(example)
@@ -36,7 +36,7 @@ public class SceneDetailsService {
     }
 
     public void deleteAllSceneDetails(Session session, Integer sceneId){
-        String deleteQuery = "DELETE FROM SceneDetails s where s.sceneId=:sId";
+        String deleteQuery = "DELETE FROM SceneDetails s where s.scene.id=:sId";
         Query query = session.createQuery(deleteQuery);
         query.setParameter("sId", sceneId);
         query.executeUpdate();

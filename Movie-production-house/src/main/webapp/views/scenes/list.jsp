@@ -90,11 +90,11 @@
                                         </div>
                                         <div class="mb-5">
                                             <label>Tranche horraire idéale minimum :</label>
-                                            <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum" name="startHour">
+                                            <input type="time" class="form-control" id="ideal-hour-min" placeholder="Tranche horraire idéale minimum" name="begin">
                                         </div>
                                         <div class="mb-5">
                                             <label>Tranche horraire idéale maximum :</label>
-                                            <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum" name="endHour">
+                                            <input class="form-control" id="ideal-hour-max" placeholder="Tranche horraire idéale maximum" name="end">
                                         </div>
                                         <button class="btn btn-primary" type="submit">
                                             Filtrer

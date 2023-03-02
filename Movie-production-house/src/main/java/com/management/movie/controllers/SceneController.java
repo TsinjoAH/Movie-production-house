@@ -11,6 +11,7 @@ import com.management.movie.services.CharacterService;
 import com.management.movie.services.MovieSetService;
 import com.management.movie.services.SceneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class SceneController {
@@ -104,9 +107,26 @@ public class SceneController {
     }
 
     @GetMapping("/scenes")
-    public ModelAndView listv2(SceneFilter sceneFilter) throws Exception {
+    public ModelAndView listv2(SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         SceneReturn sceneReturn=new SceneReturn();
+        if (!Objects.equals(startHour, "")) {
+            startHour+=":00";
+            sceneFilter.setStartHour(Time.valueOf(startHour));
+        }
+        else {
+            sceneFilter.setStartHour(null);
+        }
+        if (!Objects.equals(endHour, "")) {
+            endHour+=":00";
+            sceneFilter.setEndHour(Time.valueOf(endHour));
+        }
+        else {
+            sceneFilter.setStartHour(null);
+        }
+        if(Objects.equals(sceneFilter.getSceneNumber(), "")){
+            sceneFilter.setSceneNumber(null);
+        }
         Movie movie=new Movie();
         movie.setId(1);
         List<MovieCharacter> characterList=characterService.getByMovie(movie);
@@ -122,5 +142,6 @@ public class SceneController {
         modelAndView.addObject("sceneReturn", sceneReturn);
         modelAndView.setViewName("scenes/list");
         return modelAndView;
+//        return new ResponseEntity<>(sceneReturn,HttpStatus.OK);
     }
 }

@@ -50,7 +50,7 @@ public class SceneService {
     public void save (Session session, Scene scene){
         session.persist(scene);
         for (SceneDetails detail : scene.getSceneDetails()) {
-            detail.setSceneId(scene.getId());
+            detail.setScene(scene);
             session.persist(detail);
         }
     }
