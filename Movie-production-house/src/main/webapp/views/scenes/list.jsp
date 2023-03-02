@@ -101,42 +101,48 @@
                                         </button>
                                     </form>
                                 </div>
+                            </div>
                         </div>
-                    </div>
-                    <!--begin::table-->
-                    <table class="table table-row-bordered gy-5" id="scenes-list">
-                        <thead>
+                        <!--begin::table-->
+                        <table class="table table-row-bordered gy-5" id="scenes-list">
+                            <thead>
                             <tr class="fw-semibold fs-6 text-muted">
                                 <th>Numéro de scène</th>
                                 <th>Acteurs</th>
                                 <th>Plateau</th>
                                 <th>Début de la tranche horraire idéale</th>
                                 <th>Fin de la tranche horraire idéale</th>
+                                <th>Mettre à jour</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             <%for(Scene scene : sceneReturn.getSceneList()) {%>
-                                <tr>
-                                    <td><%=scene.getSceneNumber()%></td>
-                                    <td> - </td>
-                                    <td><%=scene.getMovieSet().getName()%></td>
-                                    <td><%=scene.getHourInterval().getStartHour()%></td>
-                                    <td><%=scene.getHourInterval().getEndHour()%></td>
-                                </tr>
+                            <tr>
+                                <td><%=scene.getSceneNumber()%></td>
+                                <td> - </td>
+                                <td><%=scene.getMovieSet().getName()%></td>
+                                <td><%=scene.getHourInterval().getStartHour()%></td>
+                                <td><%=scene.getHourInterval().getEndHour()%></td>
+                                <td>
+                                    <a href="${pageContext.request.contextPath}/scene/update/<%= scene.getId() %>" >
+                                        Modifier
+                                    </a>
+                                </td>
+                            </tr>
                             <%}%>
-                        </tbody>
-                    </table>
-                    <!--end::table-->
+                            </tbody>
+                        </table>
+                        <!--end::table-->
+                    </div>
+                    <!--end::card body-->
                 </div>
-                <!--end::card body-->
+                <!--end::card-->
             </div>
-            <!--end::card-->
         </div>
+        <!--end:content-->
     </div>
-    <!--end:content-->
-</div>
-<!--end::main-->
-<%@include file="../includes/layouts/default/bottom.jsp"%>
+    <!--end::main-->
+    <%@include file="../includes/layouts/default/bottom.jsp"%>
     <script>
         $("#estimated-time-picker-min").flatpickr({
             enableTime: true,
