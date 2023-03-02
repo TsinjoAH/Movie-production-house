@@ -18,10 +18,10 @@ public class SceneDetailsService {
     HibernateDao hibernateDao;
 
     public List<SceneDetails> findBySceneId(Integer sceneId){
-        Session session = hibernateDao.getSessionFactory().openSession();
-        List<SceneDetails> details = findBySceneId(hibernateDao.getSessionFactory().openSession(), sceneId);
-        session.close();
-        return details;
+        try (Session session = hibernateDao.getSessionFactory().openSession()) {
+            List<SceneDetails> details = findBySceneId(session, sceneId);
+            return details;
+        }
 
     }
 

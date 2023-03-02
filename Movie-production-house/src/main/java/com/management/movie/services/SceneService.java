@@ -100,10 +100,12 @@ public class SceneService {
     }
 
     public List<Scene> list(SceneFilter sceneFilter){
-        List<Scene> sceneList= dao.findBy(Scene.class,sceneFilter);
-        for(Scene scene:sceneList){
-            scene.setSceneDetails(sceneDetailsService.findBySceneId(scene.getId()));
+        try (Session session = dao.getSessionFactory().openSession()) {
+            List<Scene> sceneList = dao.findBy(session, Scene.class, sceneFilter);
+            for (Scene scene : sceneList) {
+                scene.setSceneDetails(sceneDetailsService.findBySceneId(session, scene.getId()));
+            }
+            return sceneList;
         }
-        return sceneList;
     }
 }
