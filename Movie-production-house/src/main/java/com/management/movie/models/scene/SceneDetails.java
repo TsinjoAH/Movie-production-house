@@ -32,6 +32,7 @@ public class SceneDetails extends HasId {
 
     @ManyToOne
     @JoinColumn(name = "scene_id")
+    @JsonIgnore
     private Scene scene;
 
     public SceneDetails() {

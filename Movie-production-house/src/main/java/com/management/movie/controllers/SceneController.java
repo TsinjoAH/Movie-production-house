@@ -109,39 +109,33 @@ public class SceneController {
     @GetMapping("/scenes")
     public ModelAndView listv2(SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
-        SceneReturn sceneReturn=new SceneReturn();
-        if (!Objects.equals(startHour, "")) {
-            startHour+=":00";
-            sceneFilter.setStartHour(Time.valueOf(startHour));
-        }
-        else {
-            sceneFilter.setStartHour(null);
-        }
-        if (!Objects.equals(endHour, "")) {
-            endHour+=":00";
-            sceneFilter.setEndHour(Time.valueOf(endHour));
-        }
-        else {
-            sceneFilter.setStartHour(null);
-        }
-        if(Objects.equals(sceneFilter.getSceneNumber(), "")){
-            sceneFilter.setSceneNumber(null);
-        }
         Movie movie=new Movie();
         movie.setId(1);
         List<MovieCharacter> characterList=characterService.getByMovie(movie);
         List<MovieSet> movieSetList=movieSetService.getAll();
         modelAndView.addObject("characterList",characterList);
         modelAndView.addObject("movieSetList",movieSetList);
-//        List<Scene> sceneList=sceneService.list(sceneFilter);
-//        for(Scene scene:sceneList){
-//            scene.setMovieCharacters(scene.getMovieCharacters());
-//        }
-        sceneReturn.setSceneList(sceneService.list(sceneFilter));
-        sceneReturn.setSceneFilter(sceneFilter);
-        modelAndView.addObject("sceneReturn", sceneReturn);
+        modelAndView.addObject("sceneReturn", sceneService.getSceneReturn(sceneFilter, startHour, endHour));
         modelAndView.setViewName("scenes/list");
         return modelAndView;
-//        return new ResponseEntity<>(sceneReturn,HttpStatus.OK);
+    }
+
+    @GetMapping("/test-ajax")
+    public ModelAndView listTestAjax(SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+        Movie movie=new Movie();
+        movie.setId(1);
+        List<MovieCharacter> characterList=characterService.getByMovie(movie);
+        List<MovieSet> movieSetList=movieSetService.getAll();
+        modelAndView.addObject("characterList",characterList);
+        modelAndView.addObject("movieSetList",movieSetList);
+        modelAndView.addObject("sceneReturn", sceneService.getSceneReturn(sceneFilter, startHour, endHour));
+        modelAndView.setViewName("scenes/list-ajax");
+        return modelAndView;
+    }
+
+    @PostMapping("/scenes-ajax")
+    public @ResponseBody SceneReturn listAjax(@RequestBody  SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
+        return sceneService.getSceneReturn(sceneFilter, startHour, endHour);
     }
 }

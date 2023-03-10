@@ -2,6 +2,7 @@ package com.management.movie.services;
 
 import com.management.movie.models.scene.Scene;
 import com.management.movie.models.scene.SceneDetails;
+import com.management.movie.models.scene.SceneReturn;
 import com.management.movie.models.scene.view.*;
 import com.management.movie.models.Feeling;
 import com.management.movie.models.HourInterval;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Service;
 
 import org.hibernate.Transaction;
 import com.management.movie.models.scene.SceneFilter;
+
+import java.sql.Time;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class SceneService {
@@ -53,6 +57,30 @@ public class SceneService {
             detail.setScene(scene);
             session.persist(detail);
         }
+    }
+
+    public SceneReturn getSceneReturn(SceneFilter sceneFilter, String startHour, String endHour){
+        SceneReturn sceneReturn=new SceneReturn();
+        if (!Objects.equals(startHour, "")) {
+            startHour+=":00";
+            sceneFilter.setStartHour(Time.valueOf(startHour));
+        }
+        else {
+            sceneFilter.setStartHour(null);
+        }
+        if (!Objects.equals(endHour, "")) {
+            endHour+=":00";
+            sceneFilter.setEndHour(Time.valueOf(endHour));
+        }
+        else {
+            sceneFilter.setStartHour(null);
+        }
+        if(Objects.equals(sceneFilter.getSceneNumber(), "")){
+            sceneFilter.setSceneNumber(null);
+        }
+        sceneReturn.setSceneList(list(sceneFilter));
+        sceneReturn.setSceneFilter(sceneFilter);
+        return sceneReturn;
     }
 
     public void update(Scene scene, Integer sceneId) throws Exception {
