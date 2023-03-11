@@ -5,6 +5,7 @@ import com.management.movie.models.Movie;
 import com.management.movie.models.planning.Planning;
 import com.management.movie.models.planning.PlanningElement;
 import com.management.movie.models.planning.PlanningRaw;
+import com.management.movie.models.planning.view.PlanningSuggestionCriteria;
 import com.spring.hibernate.dao.HibernateDao;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,19 @@ public class MovieService {
     @Autowired
     IntervalService intervalService;
 
+    @Autowired
+    SceneService sceneService;
+
     public MovieService(HibernateDao dao) {
         this.dao = dao;
+    }
+
+    public Planning getPlanning(int movieId, PlanningSuggestionCriteria criteria) throws Exception {
+        Planning planning = new Planning();
+        criteria.setScenes(sceneService.getOngoingPlanning());
+        //Logic for the new way of planning should replace this
+        planning = getPlanning(movieId);
+        return planning;
     }
 
     public Planning getPlanning(int id) {

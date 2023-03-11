@@ -11,7 +11,6 @@ import java.util.List;
 @Getter
 @Setter
 public class PlanningSuggestionInputs {
-    private List<Integer> scenes;
     private String beginDate;
     private String endDate;
     private List<Integer> movieSets;
@@ -19,13 +18,15 @@ public class PlanningSuggestionInputs {
     private List<String> minDates;
 
     public PlanningSuggestionCriteria getCriteria() throws Exception{
-        PlanningSuggestionCriteria criteria = new PlanningSuggestionCriteria(
-                scenes, beginDate, endDate, getMovieSets());
+        PlanningSuggestionCriteria criteria = new PlanningSuggestionCriteria(beginDate, endDate, getMovieSets());
         return criteria;
     }
 
     public List<AvailableMovieSets> getMovieSets() throws Exception {
         List<AvailableMovieSets> availableMovieSets = new ArrayList<>();
+        if(movieSets == null || movieSets.size()==0 || minDates.size()== 0 || maxDates.size() == 0){
+            throw new Exception("Please insert at least one movie set with the required dates");
+        }
         for (int i = 0; i < movieSets.size(); i++) {
             availableMovieSets.add(new AvailableMovieSets(
                    movieSets.get(i), minDates.get(i), maxDates.get(i)));

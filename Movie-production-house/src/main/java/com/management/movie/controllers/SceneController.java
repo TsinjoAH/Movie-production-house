@@ -145,4 +145,10 @@ public class SceneController {
         sceneService.updateStatus(id, 20);
         return listv2(sceneFilter, startHour, endHour);
     }
+
+    @GetMapping("/scenes/ongoing-plan/remove/{id}")
+    public String removeFromOnGoinPlan(@PathVariable Integer id) throws Exception {
+        sceneService.updateStatus(id, 10);
+        return "redirect:/planning/form";
+    }
 }

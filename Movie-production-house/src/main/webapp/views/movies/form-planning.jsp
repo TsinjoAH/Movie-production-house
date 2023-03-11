@@ -1,8 +1,10 @@
 <%@ page import="com.management.movie.models.MovieSet" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.management.movie.models.scene.Scene" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
   List<MovieSet> movieSets = (List<MovieSet>) request.getAttribute("movieSets");
+  List<Scene> scenes = (List<Scene>) request.getAttribute("scenes");
   String error = (String) request.getAttribute("error");
 %>
 <!--begin::main-->
@@ -36,12 +38,52 @@
       <div class="card card-flush">
         <!--begin::card header-->
         <div class="card-header align-items-center py-0 gap-2">
-            <h3>Step 2 : Date et plateaux disponibles </h3>
+          <h3>Liste des plannifications en cours</h3>
         </div>
         <!--end::card header-->
         <!--begin::card body-->
         <div class="card-body pt-0">
-          <form method="post"  >
+          <table class="table table-row-bordered gy-5" id="scenes-list">
+            <thead>
+            <tr class="fw-semibold fs-6 text-muted">
+              <th>Numéro de scène</th>
+              <th>Acteurs</th>
+              <th>Plateau</th>
+              <th>Début de la tranche horraire idéale</th>
+              <th>Fin de la tranche horraire idéale</th>
+              <th>Enlever</th>
+            </tr>
+            </thead>
+            <tbody>
+            <%for(Scene scene : scenes) {%>
+            <tr>
+              <td><%=scene.getSceneNumber()%></td>
+              <td> - </td>
+              <td><%=scene.getMovieSet().getName()%></td>
+              <td><%=scene.getHourInterval().getStartHour()%></td>
+              <td><%=scene.getHourInterval().getEndHour()%></td>
+              <td>
+                <a href="${pageContext.request.contextPath}/scenes/ongoing-plan/remove/<%= scene.getId() %>" >
+                  Enlever
+                </a>
+              </td>
+            </tr>
+            <%}%>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="card card-flush">
+        <!--begin::card header-->
+        <div class="card-header align-items-center py-0 gap-2">
+            <h3>Date et plateau disponibles</h3>
+        </div>
+        <!--end::card header-->
+        <!--begin::card body-->
+        <div class="card-body pt-0">
+          <form method="post" action="${pageContext.request.contextPath}/planning/suggestion"  >
             <div class="mb-5">
               <label>Date debut :</label>
               <input type="date" id="begin-date" name="beginDate" class="form-control" placeholder="Date debut">
@@ -58,7 +100,7 @@
                     <div class="mb-5 row">
                       <div class="col-3">
                         <label>Plateau :</label>
-                        <select name="movieSet" class="form-select"
+                        <select name="movieSets" class="form-select"
                                 data-control="select2" data-placeholder="Plateau"
                                 data-allow-clear="true">
                           <option value="" >--Location--</option>
@@ -71,13 +113,13 @@
                       <div class="col-3">
                         <div class="mb-5">
                           <label>Date debut disponibilite :</label>
-                          <input type="datetime-local" name="minDate" class="form-control" placeholder="Date debut">
+                          <input type="datetime-local" name="minDates" class="form-control" placeholder="Date debut">
                         </div>
                       </div>
                       <div class="col-3">
                         <div class="mb-5">
                           <label>Date fin disponibilite :</label>
-                          <input type="datetime-local" name="maxDate" class="form-control" placeholder="Date fin">
+                          <input type="datetime-local" name="maxDates" class="form-control" placeholder="Date fin">
                         </div>
                       </div>
                       <div class="col-2">
@@ -96,10 +138,14 @@
               </div>
             </div>
             <p>
-              <button id="submit" class="btn btn-primary"> Plannifier </button>
+              <input type="submit" class="btn btn-primary" value="Plannifier" />
             </p>
           </form>
-          <% if(error != null) { out.print(error); } %>
+          <%if(error != null) { %>
+            <div class="alert alert-danger" role="alert">
+              <%= error %>
+            </div>
+          <% } %>
         </div>
       </div>
     </div>
@@ -125,68 +171,4 @@
       $(this).slideUp(deleteElement);
     },
   })
-</script>
-
-<script>
-
-  $(document).ready(function() {
-    $('#submit').click(function(event) {
-      event.preventDefault();
-      submitForm();
-    });
-  });
-
-  function prepareFormData (){
-    const movieSets = $("select[name='movieSet']");
-    let arrMovieSets = [];
-    movieSets.each(function() {
-      arrMovieSets.push($(this).val());
-    });
-
-    const maxDates = $("input[name='maxDate']");
-    let arrMaxDates = [];
-    maxDates.each(function() {
-      arrMaxDates.push($(this).val());
-    });
-
-    const minDates = $("input[name='minDate']");
-    let arrMinDates = [];
-    minDates.each(function() {
-      arrMinDates.push($(this).val());
-    });
-
-    const scenes = [];
-    scenes.push(1);
-    scenes.push(2);
-
-    return ( {
-        scenes : scenes,
-        beginDate : $("#begin-date").val(),
-        endDate :  $("#end-date").val() ,
-        movieSets : arrMovieSets,
-        maxDates : arrMaxDates,
-        minDates : arrMinDates,
-    } )
-  }
-
-  function submitForm() {
-    let formData = prepareFormData();
-    console.log(formData);
-
-    $.ajax({
-      type : "POST",
-      contentType : "application/json",
-      url : "${pageContext.request.contextPath}/planning/suggestion",
-      data : JSON.stringify(formData),
-      dataType : 'json',
-      success : function(scenes) {
-        // $("#result").html("<p>" + "User " + user.name + " with email " + user.email + " has been added." + "</p>");
-        console.log("SUCCESS: ", scenes);
-      },
-      error : function(e) {
-        $("#result").html("<p>Error while fetching the list of scenes.</p>");
-        console.log("ERROR: ", e);
-      }
-    });
-  }
 </script>

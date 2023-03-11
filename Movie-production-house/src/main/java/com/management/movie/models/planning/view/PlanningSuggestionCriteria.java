@@ -1,5 +1,6 @@
 package com.management.movie.models.planning.view;
 
+import com.management.movie.models.scene.Scene;
 import lombok.Getter;
 
 import java.time.LocalDate;
@@ -10,24 +11,22 @@ import static com.management.movie.util.DateUtil.toLocalDate;
 @Getter
 public class PlanningSuggestionCriteria {
 
-    private List<Integer> scenes;
+    private List<Scene> scenes;
     private LocalDate beginDate;
     private LocalDate endDate;
     private List<AvailableMovieSets> movieSets;
 
 
-    public PlanningSuggestionCriteria(List<Integer> scenes, String beginDate, String endDate, List<AvailableMovieSets> movieSets) throws Exception {
-        setScenes(scenes);
+    public PlanningSuggestionCriteria(String beginDate, String endDate, List<AvailableMovieSets> movieSets) throws Exception {
         setBeginDate(beginDate);
         setEndDate(endDate);
         setMovieSets(movieSets);
         if(this.endDate.isBefore(this.beginDate)){
             throw new Exception("End date should always after end date");
         }
-
     }
 
-    public void setScenes(List<Integer> scenes) throws Exception {
+    public void setScenes(List<Scene> scenes) throws Exception {
         if(scenes == null || scenes.size() == 0){
             throw new Exception("Please choose at least one scene");
         }

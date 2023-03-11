@@ -7,8 +7,10 @@ import com.management.movie.models.HourInterval;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.MovieSet;
 import com.spring.hibernate.dao.HibernateDao;
+import org.hibernate.Criteria;
 import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.PersistenceException;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -140,6 +143,16 @@ public class SceneService {
         sceneForm.setHourIntervals(dao.findAll(HourInterval.class));
         sceneForm.setMovieSets(dao.findAll(MovieSet.class));
         return sceneForm;
+    }
+
+    public List<Scene> getOngoingPlanning(){
+        List<Scene> scenes = new ArrayList<>();
+        try(Session session = dao.getSessionFactory().openSession()){
+            Criteria criteria = session.createCriteria(Scene.class);
+            criteria.add(Restrictions.eq("sceneStatus.id", 20));
+            scenes = criteria.list();
+        }
+        return scenes;
     }
 
     public List<Scene> list(SceneFilter sceneFilter){
