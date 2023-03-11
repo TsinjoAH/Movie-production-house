@@ -75,6 +75,9 @@
                     <a href="${pageContext.request.contextPath}/planning" class="menu-link">
                         <span class="menu-title">Planning</span>
                     </a>
+                    <a href="${pageContext.request.contextPath}/planning/form" class="menu-link">
+                        <span class="menu-title">Planning suggestion</span>
+                    </a>
                 </div>
             </div>
             <!--end::Menu-->

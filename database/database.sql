@@ -62,7 +62,8 @@ CREATE  TABLE "public".scene (
 	movie_set_id         integer  NOT NULL  ,
 	interval_id          integer  NOT NULL  ,
 	scene_number         varchar  NOT NULL  ,
-	CONSTRAINT pk_scene PRIMARY KEY ( id ),
+	scene_status_id     integer NOT NULL DEFAULT 10,
+	CONSTRAINT pk_scene PRIMARY KEY ( id ) ,
 	CONSTRAINT unq_scene UNIQUE ( scene_number ) 
  );
 
@@ -76,9 +77,16 @@ CREATE  TABLE "public".scene_details (
 	CONSTRAINT pk_scene_details PRIMARY KEY ( id )
  );
 
+CREATE TABLE "public".scene_status
+(
+    id   integer PRIMARY KEY,
+    name VARCHAR NOT NULL
+);
+
 ALTER TABLE "public".movie_character ADD CONSTRAINT fk_movie_character_movie FOREIGN KEY ( movie_id ) REFERENCES "public".movie( id );
 
 ALTER TABLE "public".scene ADD CONSTRAINT scene_interval_id_fkey FOREIGN KEY ( interval_id ) REFERENCES "public".hour_interval( id );
+ALTER TABLE "public".scene ADD CONSTRAINT scene_status_id_fkey FOREIGN KEY ( scene_status_id ) REFERENCES "public".scene_status( id );
 
 ALTER TABLE "public".scene_details ADD CONSTRAINT fk_scene_details_feeling FOREIGN KEY ( feeling_id ) REFERENCES "public".feeling( id );
 

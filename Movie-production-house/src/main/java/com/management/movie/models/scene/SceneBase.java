@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -29,6 +28,10 @@ public class SceneBase extends HasId {
 
     @Column(name = "scene_number")
     private String sceneNumber;
+
+    @ManyToOne
+    @JoinColumn(name = "scene_status_id")
+    private SceneStatus sceneStatus;
 
     public void setSceneNumber(String sceneNumber) throws Exception {
         if(sceneNumber == null || sceneNumber.trim().equals("")){

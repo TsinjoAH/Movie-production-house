@@ -1,21 +1,20 @@
 package com.management.movie.services;
 
-import com.management.movie.models.scene.Scene;
-import com.management.movie.models.scene.SceneDetails;
-import com.management.movie.models.scene.SceneReturn;
+import com.management.movie.models.scene.*;
 import com.management.movie.models.scene.view.*;
 import com.management.movie.models.Feeling;
 import com.management.movie.models.HourInterval;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.MovieSet;
 import com.spring.hibernate.dao.HibernateDao;
+import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.hibernate.Transaction;
-import com.management.movie.models.scene.SceneFilter;
 
+import javax.persistence.PersistenceException;
 import java.sql.Time;
 import java.util.List;
 import java.util.Objects;
@@ -29,12 +28,15 @@ public class SceneService {
     @Autowired
     SceneDetailsService sceneDetailsService;
 
-    public void save (Scene scene){
+    public void save (Scene scene) throws Exception {
         Transaction transaction = null;
         Session session = null;
         try{
             session = dao.getSessionFactory().openSession();
             transaction = session.beginTransaction();
+            SceneStatus status = new SceneStatus();
+            status.setId(10);
+            scene.setSceneStatus(status);
             save(session, scene);
             transaction.commit();
         }catch (Exception e){
@@ -52,8 +54,10 @@ public class SceneService {
 
 
     public void save (Session session, Scene scene){
+        List<SceneDetails> sceneDetails = scene.getSceneDetails();
+        scene.setSceneDetails(null);
         session.persist(scene);
-        for (SceneDetails detail : scene.getSceneDetails()) {
+        for (SceneDetails detail : sceneDetails) {
             detail.setScene(scene);
             session.persist(detail);
         }
@@ -108,6 +112,17 @@ public class SceneService {
             if(session != null){
                 session.close();
             }
+        }
+    }
+
+    public void updateStatus(Integer id, Integer statusId) throws Exception {
+        try(Session session = dao.getSessionFactory().openSession()){
+            Transaction transaction = session.beginTransaction();
+            Scene scene = dao.findById(session, Scene.class, id) ;
+            scene.setSceneStatus(dao.findById(session, SceneStatus.class, statusId));
+            session.save(scene);
+            session.flush();
+            transaction.commit();
         }
     }
 

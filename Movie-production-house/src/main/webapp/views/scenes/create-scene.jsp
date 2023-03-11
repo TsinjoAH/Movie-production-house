@@ -113,7 +113,7 @@
                                             <div class="col-2">
                                                 <button data-repeater-delete class="btn btn-sm btn-light-danger mt-3 mt-md-8" type="button">
                                                     <i class="la la-trash-o"></i>Delete
-                                                    </a>
+                                                    
                                             </div>
                                         </div>
                                     </div>

@@ -6,6 +6,7 @@ import com.management.movie.models.MovieSet;
 import com.management.movie.models.scene.Scene;
 import com.management.movie.models.scene.SceneFilter;
 import com.management.movie.models.scene.SceneReturn;
+import com.management.movie.models.scene.SceneStatus;
 import com.management.movie.models.scene.view.SceneInput;
 import com.management.movie.services.CharacterService;
 import com.management.movie.services.MovieSetService;
@@ -137,5 +138,11 @@ public class SceneController {
     @PostMapping("/scenes-ajax")
     public @ResponseBody SceneReturn listAjax(@RequestBody  SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
         return sceneService.getSceneReturn(sceneFilter, startHour, endHour);
+    }
+
+    @GetMapping("/scenes/plan/{id}")
+    public ModelAndView planScene(@PathVariable Integer id, SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
+        sceneService.updateStatus(id, 20);
+        return listv2(sceneFilter, startHour, endHour);
     }
 }

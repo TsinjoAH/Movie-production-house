@@ -3,6 +3,7 @@
 <%@ page import="com.management.movie.models.MovieCharacter" %>
 <%@ page import="com.management.movie.models.scene.SceneReturn" %>
 <%@ page import="com.management.movie.models.scene.Scene" %>
+<%@ page import="com.management.movie.models.scene.SceneFilter" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
     List<MovieSet> movieSets = (List<MovieSet>) request.getAttribute("movieSetList");
@@ -128,6 +129,21 @@
                                         Modifier
                                     </a>
                                 </td>
+                                <td>
+                                    <% if(scene.getSceneStatus().getId() == 10) {
+                                        SceneFilter filter = sceneReturn.getSceneFilter();
+                                        String requestParam = "sceneNumber="+filter.getSceneNumber()+"&movieSet.id="+filter.getMovieSet().getId()+"&movieCharacter.id="+filter.getMovieCharacter().getId()+
+                                                "&begin="+filter.getStartHour()+"&end="+filter.getEndHour();
+                                        requestParam = requestParam .replaceAll("null", "");
+                                    %>
+                                        <a href="${pageContext.request.contextPath}/scenes/plan/<%= scene.getId() %>?<%= requestParam %>" >
+                                            Plannifier
+                                        </a>
+                                    <% } else { %>
+                                        <%= scene.getSceneStatus().getName() %>
+                                    <% } %>
+                                </td>
+                                <td>dddd</td>
                             </tr>
                             <%}%>
                             </tbody>

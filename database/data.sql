@@ -24,7 +24,9 @@ INSERT INTO "public".movie_character
 	( default, 'Vinesh', 1 ),
 	( default, 'Andy', 1 );
 
-
+INSERT INTO "public".scene_status(id, name) values
+                                                (10, 'Cree'), (20, 'En cours de plannification'),
+                                                (30, 'Plannifier'), (40, 'Fait');
 INSERT INTO "public".feeling
 	( id, name) VALUES
 	( default, 'content' ),
@@ -209,6 +211,7 @@ INSERT INTO "public".scene_details
 
 	UPDATE "public".movie SET title = 'Welcome to ITU' ;
 
+
 	INSERT INTO "public".scene
 	( id, movie_id, movie_set_id, interval_id, scene_number) VALUES ( default, 1, 9, 16, 'MV1SC9' );
 
@@ -259,3 +262,4 @@ INSERT INTO "public".scene_details
 	( default, 1, 1, 'Alors que le gateau sort juste du four, Ny Aina arrive et coupe immediatement un morceau pour le manger', 300, 11 ),
 	( default, 10, 9, 'Liantsoa n''est pas contente et dit a Ny Aina d''arreter, mais Ny Aina continue et termine le gateau', 600, 11 ),
 	( default, null,null, 'Finalement, les autres prennent aussi une part et Ny Aina en a rajoute', 400, 11 );
+

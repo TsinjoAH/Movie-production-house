@@ -2,9 +2,13 @@ package com.management.movie.services;
 
 import com.management.movie.models.scene.Scene;
 import com.management.movie.models.scene.SceneDetails;
+import com.management.movie.models.scene.SceneView;
 import com.spring.hibernate.dao.HibernateDao;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import com.management.movie.models.scene.SceneDetailsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +30,9 @@ public class SceneDetailsService {
     }
 
     public List<SceneDetails> findBySceneId(Session session, Integer sceneId){
-        SceneDetails sceneDetails = new SceneDetails();
-        sceneDetails.setScene(hibernateDao.findById(Scene.class, sceneId));
-        Example example = Example.create(sceneDetails);
-        List<SceneDetails> results = session.createCriteria(SceneDetails.class)
-                .add(example)
-                .list();
-        return results;
+        Criteria criteria = session.createCriteria(SceneDetails.class);
+        criteria.add(Restrictions.eq("scene.id", sceneId));
+        return criteria.list();
     }
 
     public void deleteAllSceneDetails(Session session, Integer sceneId){
