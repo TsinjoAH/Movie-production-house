@@ -1,3 +1,4 @@
+<%@ page import="com.management.movie.models.planning.Planning" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <!--begin::main-->
 <div class="d-flex flex-column flex-column-fluid">
@@ -22,6 +23,9 @@
             </div>
         </div>
     </div>
+    <%
+        Planning planning = (Planning) request.getAttribute("planningObject");
+    %>
     <!--end::toolbar-->
     <!--begin::content-->
     <div class="app-content flex-column-fluid">
