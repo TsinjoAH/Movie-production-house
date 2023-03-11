@@ -101,3 +101,20 @@ create view v_scene as
 select s.*, duration
 from scene s join v_scene_duration vsd on s.id = vsd.scene_id;
 
+CREATE  TABLE "public".planning ( 
+	id                   serial  NOT NULL  ,
+	movie_id             integer    ,
+	date_start           date    ,
+	date_end             date    ,
+	CONSTRAINT pk_planning PRIMARY KEY ( id )
+ );
+
+CREATE  TABLE "public".planning_details ( 
+	id                   serial  NOT NULL  ,
+	planning_id          integer    ,
+	scene_id             integer    ,
+	timestamp_start      timestamp    ,
+	timestamp_end        timestamp    ,
+	CONSTRAINT pk_planning_details PRIMARY KEY ( id ),
+	CONSTRAINT fk_planning_details_planning FOREIGN KEY ( planning_id ) REFERENCES "public".planning( id )   
+ );
