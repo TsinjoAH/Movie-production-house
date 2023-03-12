@@ -1,5 +1,8 @@
 <%@ page import="com.management.movie.models.planning.Planning" %>
+<%@ page import="com.management.movie.models.planning.PlanningElement" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
+<%@ page import="java.time.format.DateTimeFormatter" %>
+
 <!--begin::main-->
 <div class="d-flex flex-column flex-column-fluid">
     <!--begin::toolbar-->
@@ -36,6 +39,43 @@
                 </div>
                 <div class="card-body pt-0">
                     <div id="calendar"></div>
+                    <div class="mt-5">
+                        <form>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Scene Name</th>
+                                    <th>Movie Set</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <% for (PlanningElement element : planning.getElements()) { %>
+                                <tr>
+                                    <td><%= element.getScene().getSceneNumber() %></td>
+                                    <td><%= element.getScene().getMovieSet().getName() %></td>
+                                    <td>
+                                        <input type="datetime-local"
+<%--                                               name="timestampStart<%= element.getScene().getId() %>"--%>
+                                               name="timestampStart<%= element.getScene().getId() %>"
+                                               id="timestampStart<%= element.getScene().getId() %>"
+                                               value="<%= element.getStart().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %>">
+                                    </td>
+                                    <td>
+                                        <input type="datetime-local" name="timestampEnd<%= element.getScene().getId() %>"
+                                               id="timestampEnd<%= element.getScene().getId() %>"
+                                               value="<%= element.getEnd().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %>">
+                                    </td>
+<%--                                    <td><button type="submit" class="btn btn-primary">Save</button></td>--%>
+                                </tr>
+                                <% } %>
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -91,3 +131,4 @@
         calendar.render();
     })
 </script>
+

@@ -2,21 +2,20 @@ package com.management.movie.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.management.movie.models.planning.MoviePlanning;
+import com.management.movie.models.planning.MoviePlanningDetails;
 import com.management.movie.models.planning.Planning;
 import com.management.movie.models.planning.view.PlanningSuggestionCriteria;
 import com.management.movie.models.planning.view.PlanningSuggestionInputs;
-import com.management.movie.services.MovieService;
-import com.management.movie.services.MovieSetService;
-import com.management.movie.services.SceneService;
+import com.management.movie.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.Enumeration;
 
 @Controller
 public class PlanningController {
@@ -31,6 +30,12 @@ public class PlanningController {
 
     @Autowired
     SceneService sceneService;
+
+    @Autowired
+    PlanningDetailsService planningDetailsService;
+
+    @Autowired
+    PlanningService planningService;
 
     @GetMapping("planning/form")
     public ModelAndView getFormPlanning(ModelAndView modelAndView) {
@@ -65,5 +70,36 @@ public class PlanningController {
         modelAndView.addObject("planningObject", session.getAttribute("planning"));
         modelAndView.setViewName("movies/planning");
         return modelAndView;
+    }
+
+    @PostMapping("/updatePlanning")
+    public String updatePlanning(@RequestParam("planningId") Long planningId,
+                                 @RequestParam("startTimes[]") String[] startTimes,
+                                 @RequestParam("endTimes[]") String[] endTimes,
+                                 @RequestParam("sceneIds[]") Long[] sceneIds) {
+        // retrieve the planning object to update
+        MoviePlanning planning = planningService.findById(planningId).orElseThrow(() -> new RuntimeException("Invalid planning ID"));
+
+        // iterate over the input arrays to update the planning details
+        for (int i = 0; i < sceneIds.length; i++) {
+            Long sceneId = sceneIds[i];
+            Timestamp startTime = Timestamp.valueOf(startTimes[i]);
+            Timestamp endTime = Timestamp.valueOf(endTimes[i]);
+
+            // find the corresponding planning detail object for the scene ID
+            MoviePlanningDetails planningDetails = planning.getPlanningDetails().stream()
+                    .filter(pd -> pd.getScene().getId().equals(sceneId))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Invalid scene ID"));
+
+            // update the start and end times of the planning detail object
+            planningDetails.setTimestampStart(startTime);
+            planningDetails.setTimestampEnd(endTime);
+        }
+
+        // save the updated planning object
+        moviePlanningRepository.save(planning);
+
+        return "redirect:/planning/" + planningId;
     }
 }
