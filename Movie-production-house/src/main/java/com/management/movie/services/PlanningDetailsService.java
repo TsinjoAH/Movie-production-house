@@ -16,6 +16,20 @@ public class PlanningDetailsService {
     @Autowired
     HibernateDao dao;
 
+    public List<MoviePlanningDetails> findByPlanningId(Integer planningId){
+        try (Session session = dao.getSessionFactory().openSession()) {
+            List<MoviePlanningDetails> details = findbyPlanningId(session, planningId);
+            return details;
+        }
+
+    }
+
+    public List<MoviePlanningDetails> findbyPlanningId(Session session, Integer planningId){
+        Criteria criteria = session.createCriteria(MoviePlanningDetails.class);
+        criteria.add(Restrictions.eq("planning.id", planningId));
+        return criteria.list();
+    }
+
     public List<SceneDetails> findBySceneId(Integer sceneId){
         try (Session session = dao.getSessionFactory().openSession()) {
             List<SceneDetails> details = findBySceneId(session, sceneId);

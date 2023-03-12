@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.Enumeration;
 
 @Controller
@@ -73,12 +74,12 @@ public class PlanningController {
     }
 
     @PostMapping("/updatePlanning")
-    public String updatePlanning(@RequestParam("planningId") Long planningId,
+    public String updatePlanning(@RequestParam("planningId") Integer planningId,
                                  @RequestParam("startTimes[]") String[] startTimes,
                                  @RequestParam("endTimes[]") String[] endTimes,
                                  @RequestParam("sceneIds[]") Long[] sceneIds) {
         // retrieve the planning object to update
-        MoviePlanning planning = planningService.findById(planningId).orElseThrow(() -> new RuntimeException("Invalid planning ID"));
+        MoviePlanning planning = planningService.findById(planningId);
 
         // iterate over the input arrays to update the planning details
         for (int i = 0; i < sceneIds.length; i++) {
@@ -87,7 +88,7 @@ public class PlanningController {
             Timestamp endTime = Timestamp.valueOf(endTimes[i]);
 
             // find the corresponding planning detail object for the scene ID
-            MoviePlanningDetails planningDetails = planning.getPlanningDetails().stream()
+            MoviePlanningDetails planningDetails = planning.getMoviePlanningDetails().stream()
                     .filter(pd -> pd.getScene().getId().equals(sceneId))
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("Invalid scene ID"));
@@ -98,7 +99,7 @@ public class PlanningController {
         }
 
         // save the updated planning object
-        moviePlanningRepository.save(planning);
+        planningService.save(planning);
 
         return "redirect:/planning/" + planningId;
     }

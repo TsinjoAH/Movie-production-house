@@ -18,6 +18,9 @@ public class PlanningService {
     @Autowired
     HibernateDao dao;
 
+    @Autowired
+    PlanningDetailsService planningDetailsService;
+
     public void save(MoviePlanning planning){
         Transaction transaction = null;
         Session session = null;
@@ -36,6 +39,12 @@ public class PlanningService {
                 session.close();
             }
         }
+    }
+
+    public MoviePlanning findById(Integer id){
+        MoviePlanning moviePlanning = dao.findById(MoviePlanning.class, id);
+        moviePlanning.setMoviePlanningDetails(planningDetailsService.findByPlanningId(id));
+        return moviePlanning;
     }
 
 
