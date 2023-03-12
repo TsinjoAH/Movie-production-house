@@ -2,11 +2,14 @@ package com.management.movie.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.management.movie.models.Movie;
 import com.management.movie.models.planning.MoviePlanning;
 import com.management.movie.models.planning.MoviePlanningDetails;
 import com.management.movie.models.planning.Planning;
+import com.management.movie.models.planning.PlanningElement;
 import com.management.movie.models.planning.view.PlanningSuggestionCriteria;
 import com.management.movie.models.planning.view.PlanningSuggestionInputs;
+import com.management.movie.models.scene.Scene;
 import com.management.movie.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +18,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.Data;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 @Controller
 public class PlanningController {
@@ -40,15 +49,15 @@ public class PlanningController {
 
     @GetMapping("planning/form")
     public ModelAndView getFormPlanning(ModelAndView modelAndView) {
-        modelAndView.addObject("movieSets", movieSetService.getAll() );
+        modelAndView.addObject("movieSets", movieSetService.getAll());
         modelAndView.addObject("scenes", sceneService.getOngoingPlanning());
         modelAndView.setViewName("movies/form-planning");
         return modelAndView;
     }
 
     @PostMapping("/planning/suggestion")
-    public ModelAndView getPlanning(ModelAndView modelAndView, @ModelAttribute PlanningSuggestionInputs inputs, HttpSession session){
-        try{
+    public ModelAndView getPlanning(ModelAndView modelAndView, @ModelAttribute PlanningSuggestionInputs inputs, HttpSession session) {
+        try {
             PlanningSuggestionCriteria criteria = inputs.getCriteria();
             int movieId = 1;
             Planning planning = movieService.getPlanning(movieId, criteria);
@@ -57,7 +66,7 @@ public class PlanningController {
             session.setAttribute("criteria", criteria);
             modelAndView.addObject("planning", mapper.writeValueAsString(planning));
             modelAndView.addObject("planningObject", planning);
-        }catch (Exception e){
+        } catch (Exception e) {
             modelAndView.addObject("error", e.getMessage());
             e.printStackTrace();
             return getFormPlanning(modelAndView);
@@ -73,34 +82,45 @@ public class PlanningController {
         return modelAndView;
     }
 
-    @PostMapping("/updatePlanning")
-    public String updatePlanning(@RequestParam("planningId") Integer planningId,
-                                 @RequestParam("startTimes[]") String[] startTimes,
-                                 @RequestParam("endTimes[]") String[] endTimes,
-                                 @RequestParam("sceneIds[]") Long[] sceneIds) {
-        // retrieve the planning object to update
-        MoviePlanning planning = planningService.findById(planningId);
+    @PostMapping("/planning/updatePlanning")
+    public ModelAndView updatePlanning(@RequestParam("timestampStart[]") List<String> timestampStarts,
+                                       @RequestParam("timestampEnd[]") List<String> timestampEnds,
+                                       @RequestParam("sceneIds[]") List<Integer> sceneIds,
+                                        HttpSession session) throws Exception {
 
-        // iterate over the input arrays to update the planning details
-        for (int i = 0; i < sceneIds.length; i++) {
-            Long sceneId = sceneIds[i];
-            Timestamp startTime = Timestamp.valueOf(startTimes[i]);
-            Timestamp endTime = Timestamp.valueOf(endTimes[i]);
+        MoviePlanning moviePlanning = new MoviePlanning();
+        PlanningSuggestionCriteria criteria = (PlanningSuggestionCriteria) session.getAttribute("criteria");
+        Movie movie = new Movie();
+        movie.setId(1);
+        moviePlanning.setMovie(movie);
+        moviePlanning.setDateStart(Date.valueOf(criteria.getBeginDate()));
+        moviePlanning.setDateEnd(Date.valueOf(criteria.getEndDate()));
+        //set the movieplanningdetails
+        List<MoviePlanningDetails> moviePlanningDetailsList = new ArrayList<>();
+//        for (int i = 0; i < timestampStarts.size(); i++) {
+//            MoviePlanningDetails moviePlanningDetails = new MoviePlanningDetails();
+//            moviePlanningDetails.setTimestampStart(Timestamp.valueOf(timestampStarts.get(i)));
+//            moviePlanningDetails.setTimestampEnd(Timestamp.valueOf(timestampEnds.get(i)));
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSSSSSSS");
 
-            // find the corresponding planning detail object for the scene ID
-            MoviePlanningDetails planningDetails = planning.getMoviePlanningDetails().stream()
-                    .filter(pd -> pd.getScene().getId().equals(sceneId))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Invalid scene ID"));
+        for (int i = 0; i < timestampStarts.size(); i++) {
+            String start = timestampStarts.get(i);
+            String end = timestampEnds.get(i);
 
-            // update the start and end times of the planning detail object
-            planningDetails.setTimestampStart(startTime);
-            planningDetails.setTimestampEnd(endTime);
+            Timestamp startTimestamp = Timestamp.valueOf(outputFormat.format(inputFormat.parse(start)));
+            Timestamp endTimestamp = Timestamp.valueOf(outputFormat.format(inputFormat.parse(end)));
+
+            MoviePlanningDetails moviePlanningDetails = new MoviePlanningDetails();
+            moviePlanningDetails.setTimestampStart(startTimestamp);
+            moviePlanningDetails.setTimestampEnd(endTimestamp);
+            Scene scene = new Scene();
+            scene.setId(sceneIds.get(i));
+            moviePlanningDetails.setScene(scene);
+            moviePlanningDetailsList.add(moviePlanningDetails);
         }
-
-        // save the updated planning object
-        planningService.save(planning);
-
-        return "redirect:/planning/" + planningId;
+        moviePlanning.setMoviePlanningDetails(moviePlanningDetailsList);
+        planningService.save(moviePlanning);
+        return new ModelAndView("redirect:/planning/last-suggestion");
     }
 }

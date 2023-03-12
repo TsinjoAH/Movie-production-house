@@ -40,7 +40,7 @@
                 <div class="card-body pt-0">
                     <div id="calendar"></div>
                     <div class="mt-5">
-                        <form>
+                        <form method="post" action="${pageContext.request.contextPath}/planning/updatePlanning">
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
@@ -54,17 +54,23 @@
                                 <tbody>
                                 <% for (PlanningElement element : planning.getElements()) { %>
                                 <tr>
+                                    <input type="hidden"
+                                    <%--                                               name="timestampStart<%= element.getScene().getId() %>"--%>
+                                           name="sceneIds[]"
+                                           value="<%= element.getScene().getId() %>">
                                     <td><%= element.getScene().getSceneNumber() %></td>
                                     <td><%= element.getScene().getMovieSet().getName() %></td>
                                     <td>
                                         <input type="datetime-local"
 <%--                                               name="timestampStart<%= element.getScene().getId() %>"--%>
-                                               name="timestampStart<%= element.getScene().getId() %>"
+                                               name="timestampStart[]"
                                                id="timestampStart<%= element.getScene().getId() %>"
                                                value="<%= element.getStart().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %>">
                                     </td>
                                     <td>
-                                        <input type="datetime-local" name="timestampEnd<%= element.getScene().getId() %>"
+                                        <input type="datetime-local"
+<%--                                               name="timestampEnd<%= element.getScene().getId() %>"--%>
+                                               name="timestampEnd[]"
                                                id="timestampEnd<%= element.getScene().getId() %>"
                                                value="<%= element.getEnd().toLocalDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) %>">
                                     </td>
