@@ -34,6 +34,7 @@ public class IntervalService {
         Criteria criteria = session.createCriteria(SceneView.class);
         criteria.add(Restrictions.eq("movie.id", movieId));
         criteria.add(Restrictions.eq("hourInterval.id", intervalId));
+        criteria.add(Restrictions.eq("sceneStatus.id", 20));
         criteria.addOrder(Order.asc("movieSet.id"));
         return criteria.list();
     }

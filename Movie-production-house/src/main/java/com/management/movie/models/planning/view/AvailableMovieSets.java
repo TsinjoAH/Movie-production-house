@@ -1,8 +1,10 @@
 package com.management.movie.models.planning.view;
 
+import com.management.movie.models.HourInterval;
 import lombok.Getter;
 import static com.management.movie.util.DateUtil.toLocalDateTime;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 @Getter
 public class AvailableMovieSets {
@@ -50,5 +52,15 @@ public class AvailableMovieSets {
     }
     public void setMaxDate(LocalDateTime maxDate) {
         this.maxDate = maxDate;
+    }
+
+    public boolean contains(LocalDateTime end) {
+        return minDate.isBefore(end) && maxDate.isAfter(end);
+    }
+
+    public boolean containsOne(HourInterval interval, LocalDate date) {
+        boolean start = contains(LocalDateTime.of(date, interval.getStartHour().toLocalTime()));
+        boolean end = contains(LocalDateTime.of(date, interval.getEndHour().toLocalTime()));
+        return (!start && end);
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,15 +32,7 @@ public class MovieService {
         this.dao = dao;
     }
 
-    public Planning getPlanning(int movieId, PlanningSuggestionCriteria criteria) throws Exception {
-        Planning planning = new Planning();
-        criteria.setScenes(sceneService.getOngoingPlanning());
-        //Logic for the new way of planning should replace this
-        planning = getPlanning(movieId);
-        return planning;
-    }
-
-    public Planning getPlanning(int id) {
+    public Planning getPlanning(int id, PlanningSuggestionCriteria criteria) throws Exception {
         Planning planning = new Planning();
         try (Session session = dao.getSessionFactory().openSession()) {
 
@@ -51,8 +45,9 @@ public class MovieService {
             // create list of elements
             for (PlanningRaw raw : raws) {
                 elements.addAll(raw.getElements(
-                    new Timestamp(movie.getStartDate().getTime()),
-                    intervalService.getDayOff(session)
+                    Timestamp.valueOf(LocalDateTime.of(criteria.getBeginDate(), LocalTime.of(0,0,0))),
+                    intervalService.getDayOff(session),
+                    criteria.getMovieSets()
                 ));
             }
 

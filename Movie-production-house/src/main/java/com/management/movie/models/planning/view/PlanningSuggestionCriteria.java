@@ -11,7 +11,6 @@ import static com.management.movie.util.DateUtil.toLocalDate;
 @Getter
 public class PlanningSuggestionCriteria {
 
-    private List<Scene> scenes;
     private LocalDate beginDate;
     private LocalDate endDate;
     private List<AvailableMovieSets> movieSets;
@@ -26,12 +25,6 @@ public class PlanningSuggestionCriteria {
         }
     }
 
-    public void setScenes(List<Scene> scenes) throws Exception {
-        if(scenes == null || scenes.size() == 0){
-            throw new Exception("Please choose at least one scene");
-        }
-        this.scenes = scenes;
-    }
 
     public void setBeginDate(LocalDate beginDate) {
         this.beginDate = beginDate;
