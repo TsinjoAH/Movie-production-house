@@ -1,4 +1,4 @@
-<%@ page import="com.management.movie.models.MovieSet" %>
+<%@ page import="com.management.movie.models.movieSet.MovieSet" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.management.movie.models.MovieCharacter" %>
 <%@ page import="com.management.movie.models.scene.SceneReturn" %>

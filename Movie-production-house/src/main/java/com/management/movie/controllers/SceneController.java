@@ -2,11 +2,10 @@ package com.management.movie.controllers;
 
 import com.management.movie.models.Movie;
 import com.management.movie.models.MovieCharacter;
-import com.management.movie.models.MovieSet;
+import com.management.movie.models.movieSet.MovieSet;
 import com.management.movie.models.scene.Scene;
 import com.management.movie.models.scene.SceneFilter;
 import com.management.movie.models.scene.SceneReturn;
-import com.management.movie.models.scene.SceneStatus;
 import com.management.movie.models.scene.view.SceneInput;
 import com.management.movie.services.CharacterService;
 import com.management.movie.services.MovieSetService;
@@ -20,9 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.sql.Time;
 import java.util.List;
-import java.util.Objects;
 
 @Controller
 public class SceneController {

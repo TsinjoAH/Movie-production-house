@@ -1,10 +1,8 @@
 package com.management.movie.services;
 
-import com.management.movie.models.Movie;
-import com.management.movie.models.MovieSet;
+import com.management.movie.models.movieSet.AvailableMovieSets;
+import com.management.movie.models.movieSet.MovieSet;
 import com.spring.hibernate.dao.HibernateDao;
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,5 +15,13 @@ public class MovieSetService {
 
     public List<MovieSet> getAll(){
         return hibernateDao.findAll(MovieSet.class);
+    }
+
+    public AvailableMovieSets insertAvailable(AvailableMovieSets movieSets){
+        return hibernateDao.save(movieSets);
+    }
+
+    public List<AvailableMovieSets> getAvailables (){
+        return hibernateDao.findAll(AvailableMovieSets.class);
     }
 }

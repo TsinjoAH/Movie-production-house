@@ -6,9 +6,7 @@ import com.management.movie.models.Movie;
 import com.management.movie.models.planning.MoviePlanning;
 import com.management.movie.models.planning.MoviePlanningDetails;
 import com.management.movie.models.planning.Planning;
-import com.management.movie.models.planning.PlanningElement;
 import com.management.movie.models.planning.view.PlanningSuggestionCriteria;
-import com.management.movie.models.planning.view.PlanningSuggestionInputs;
 import com.management.movie.models.scene.Scene;
 import com.management.movie.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +14,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.Data;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 @Controller
@@ -56,9 +50,9 @@ public class PlanningController {
     }
 
     @PostMapping("/planning/suggestion")
-    public ModelAndView getPlanning(ModelAndView modelAndView, @ModelAttribute PlanningSuggestionInputs inputs, HttpSession session) {
+    public ModelAndView getPlanning(ModelAndView modelAndView, @RequestParam String beginDate, @RequestParam String endDate, HttpSession session) {
         try {
-            PlanningSuggestionCriteria criteria = inputs.getCriteria();
+            PlanningSuggestionCriteria criteria = new PlanningSuggestionCriteria(beginDate, endDate);
             int movieId = 1;
             Planning planning = movieService.getPlanning(movieId, criteria);
             modelAndView.setViewName("movies/planning");

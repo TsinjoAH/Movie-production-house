@@ -1,4 +1,4 @@
-package com.management.movie.models;
+package com.management.movie.models.movieSet;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.management.movie.models.common.HasName;

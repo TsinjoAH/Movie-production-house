@@ -1,5 +1,6 @@
 package com.management.movie.models.planning.view;
 
+import com.management.movie.models.movieSet.AvailableMovieSets;
 import com.management.movie.models.scene.Scene;
 import lombok.Getter;
 
@@ -17,10 +18,9 @@ public class PlanningSuggestionCriteria {
     private List<AvailableMovieSets> movieSets;
 
 
-    public PlanningSuggestionCriteria(String beginDate, String endDate, List<AvailableMovieSets> movieSets) throws Exception {
+    public PlanningSuggestionCriteria(String beginDate, String endDate) throws Exception {
         setBeginDate(beginDate);
         setEndDate(endDate);
-        setMovieSets(movieSets);
         if(this.endDate.isBefore(this.beginDate)){
             throw new Exception("End date should always after end date");
         }

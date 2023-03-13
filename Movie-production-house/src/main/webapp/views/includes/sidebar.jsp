@@ -71,13 +71,45 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-item">
-                    <a href="${pageContext.request.contextPath}/planning" class="menu-link">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-title">Plateau disponibles</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a href="${pageContext.request.contextPath}/available-movieset/form" class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Insertion</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a href="${pageContext.request.contextPath}/scene/create" class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Calendrier</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
                         <span class="menu-title">Planning</span>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/planning/form" class="menu-link">
-                        <span class="menu-title">Planning suggestion</span>
-                    </a>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a href="${pageContext.request.contextPath}/planning/form" class="menu-link">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Suggestion</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--end::Menu-->

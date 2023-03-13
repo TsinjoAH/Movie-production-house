@@ -2,7 +2,7 @@ package com.management.movie.models.scene;
 
 import com.management.movie.models.HourInterval;
 import com.management.movie.models.Movie;
-import com.management.movie.models.MovieSet;
+import com.management.movie.models.movieSet.MovieSet;
 import com.management.movie.models.common.HasId;
 import lombok.Getter;
 import lombok.Setter;

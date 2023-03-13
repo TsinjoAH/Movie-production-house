@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.management.movie.models.HourInterval;
 import com.management.movie.models.Movie;
 import com.management.movie.models.MovieCharacter;
-import com.management.movie.models.MovieSet;
+import com.management.movie.models.movieSet.MovieSet;
 import com.spring.hibernate.dao.Filter;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.Criteria;
 import org.hibernate.criterion.*;
 
 import java.sql.Time;
