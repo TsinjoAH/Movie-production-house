@@ -1,5 +1,6 @@
 package com.management.movie.models.scene;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.management.movie.models.HourInterval;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.movieSet.MovieSet;
@@ -48,6 +49,21 @@ public class Scene extends SceneBase {
         setHourInterval(hourInterval);
         setMovieSet(movieSet);
         setSceneNumber(sceneNumber);
+    }
+
+    @JsonIgnore
+    public String getPlanLink(SceneFilter filter ) {
+//        String requestParam =
+//                "sceneNumber="
+//                +filter.getSceneNumber()
+//                +"&movieSet.id="
+//                +filter.getMovieSet().getId()
+//                +"&movieCharacter.id="
+//                +filter.getMovieCharacter().getId()+
+//                "&begin="+filter.getStartHour()
+//                +"&end="+filter.getEndHour();
+//        requestParam = requestParam .replaceAll("null", "");
+        return "";
     }
 
 
