@@ -15,5 +15,6 @@
     <link href="${pageContext.request.contextPath}/resources/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.bundle.css" rel="stylesheet" type="text/css">
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--end::Global Stylesheets Bundle-->
 </head>
