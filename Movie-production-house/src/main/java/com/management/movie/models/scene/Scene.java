@@ -3,7 +3,7 @@ package com.management.movie.models.scene;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.management.movie.models.HourInterval;
 import com.management.movie.models.MovieCharacter;
-import com.management.movie.models.movieSet.MovieSet;
+import com.management.movie.models.MovieSet;
 import lombok.Getter;
 import lombok.Setter;
 

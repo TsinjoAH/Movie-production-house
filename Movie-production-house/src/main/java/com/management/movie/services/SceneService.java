@@ -5,9 +5,10 @@ import com.management.movie.models.scene.view.*;
 import com.management.movie.models.Feeling;
 import com.management.movie.models.HourInterval;
 import com.management.movie.models.MovieCharacter;
-import com.management.movie.models.movieSet.MovieSet;
+import com.management.movie.models.MovieSet;
 import com.spring.hibernate.dao.HibernateDao;
 import org.hibernate.Criteria;
+import org.hibernate.PersistentObjectException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import org.hibernate.Transaction;
 
+import javax.persistence.PersistenceException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;

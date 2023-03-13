@@ -111,20 +111,10 @@ CREATE  TABLE "public".planning (
 
 CREATE  TABLE "public".planning_details ( 
 	id                   serial  NOT NULL  ,
-	planning_id          integer    NOT NULL,
-	scene_id             integer    NOT NULL,
-	timestamp_start      timestamp    NOT NULL,
-	timestamp_end        timestamp    NOT NULL,
+	planning_id          integer    ,
+	scene_id             integer    ,
+	timestamp_start      timestamp    ,
+	timestamp_end        timestamp    ,
 	CONSTRAINT pk_planning_details PRIMARY KEY ( id ),
 	CONSTRAINT fk_planning_details_planning FOREIGN KEY ( planning_id ) REFERENCES "public".planning( id )   
  );
-
-
-CREATE TABLE "public".available_movie_sets (
-    id serial       NOT NULL PRIMARY KEY ,
-    movie_set_id    INTEGER NOT NULL,
-    timestamp_start      timestamp    NOT NULL,
-    timestamp_end     timestamp    NOT NULL,
-    CONSTRAINT fk_available_movie_sets FOREIGN KEY (movie_set_id) REFERENCES "public".movie_set( id )
-);
-

@@ -26,9 +26,6 @@ public class MovieService {
     @Autowired
     SceneService sceneService;
 
-    @Autowired
-    MovieSetService movieSetService;
-
     public MovieService(HibernateDao dao) {
         this.dao = dao;
     }
@@ -36,7 +33,6 @@ public class MovieService {
     public Planning getPlanning(int movieId, PlanningSuggestionCriteria criteria) throws Exception {
         Planning planning = new Planning();
         criteria.setScenes(sceneService.getOngoingPlanning());
-        criteria.setMovieSets(movieSetService.getAvailables());
         //Logic for the new way of planning should replace this
         planning = getPlanning(movieId);
         return planning;

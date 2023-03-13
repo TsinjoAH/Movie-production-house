@@ -1,4 +1,4 @@
-<%@ page import="com.management.movie.models.movieSet.MovieSet" %>
+<%@ page import="com.management.movie.models.MovieSet" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.management.movie.models.scene.Scene" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
@@ -92,7 +92,54 @@
               <label>Date fin :</label>
               <input type="date" id="end-date" name="endDate" class="form-control" placeholder="Date fin">
             </div>
-            <input type="submit" class="btn btn-primary" value="Plannifier" />
+            <label class="mb-5">Plateaux disponibles :</label>
+            <div id="data">
+              <div class="form-group">
+                <div data-repeater-list="data">
+                  <div data-repeater-item>
+                    <div class="mb-5 row">
+                      <div class="col-3">
+                        <label>Plateau :</label>
+                        <select name="movieSets" class="form-select"
+                                data-control="select2" data-placeholder="Plateau"
+                                data-allow-clear="true">
+                          <option value="" >--Location--</option>
+                          <% for (MovieSet movieSet : movieSets
+                          ) { %>
+                          <option value="<%= movieSet.getId() %>" > <%= movieSet.getName() %> </option>
+                          <% } %>
+                        </select>
+                      </div>
+                      <div class="col-3">
+                        <div class="mb-5">
+                          <label>Date debut disponibilite :</label>
+                          <input type="datetime-local" name="minDates" class="form-control" placeholder="Date debut">
+                        </div>
+                      </div>
+                      <div class="col-3">
+                        <div class="mb-5">
+                          <label>Date fin disponibilite :</label>
+                          <input type="datetime-local" name="maxDates" class="form-control" placeholder="Date fin">
+                        </div>
+                      </div>
+                      <div class="col-2">
+                        <button data-repeater-delete class="btn btn-sm btn-light-danger mt-3 mt-md-8" type="button">
+                          <i class="la la-trash-o"></i>Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mt-5 mb-5">
+                <button data-repeater-create class="btn btn-light-primary" type="button">
+                  <i class="la la-plus"></i>Add
+                </button>
+              </div>
+            </div>
+            <p>
+              <input type="submit" class="btn btn-primary" value="Plannifier" />
+            </p>
           </form>
           <%if(error != null) { %>
             <div class="alert alert-danger" role="alert">
@@ -105,3 +152,23 @@
   </div>
 </div>
 <%@include file="../includes/layouts/default/bottom.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.repeater/1.2.1/jquery.repeater.min.js" integrity="sha512-foIijUdV0fR0Zew7vmw98E6mOWd9gkGWQBWaoA1EOFAx+pY+N8FmmtIYAVj64R98KeD2wzZh1aHK0JSpKmRH8w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+  $("#data").repeater({
+    initEmpty: true,
+    defaultValues: {
+      'text-input': 'foo'
+    },
+    show: function () {
+      $(this).slideDown();
+      // redonner aux inputs leur nom original
+      $('#data').find('[name]').each(function () {
+        var name = $(this).attr('name');
+        $(this).attr('name',name.match(/\w+(?=]$)/)[0])
+      });
+    },
+    hide: function (deleteElement) {
+      $(this).slideUp(deleteElement);
+    },
+  })
+</script>

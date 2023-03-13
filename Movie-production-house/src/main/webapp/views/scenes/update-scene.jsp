@@ -1,5 +1,5 @@
 <%@ page import="com.management.movie.models.scene.view.SceneForm" %>
-<%@ page import="com.management.movie.models.movieSet.MovieSet" %>
+<%@ page import="com.management.movie.models.MovieSet" %>
 <%@ page import="com.management.movie.models.MovieCharacter" %>
 <%@ page import="com.management.movie.models.Feeling" %>
 <%@ page import="com.management.movie.models.HourInterval" %>
