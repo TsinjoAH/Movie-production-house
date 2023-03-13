@@ -56,12 +56,12 @@
                     <div class="accordion" id="accordion-1">
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="accordion-header">
-                                <button class="accordion-button fs-4 fw-semibold" type="button" data-bs-toggle="collapse"
+                                <button class="accordion-button fs-4 fw-semibold collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#accordion-body" aria-expanded="true" aria-controls="accordion-body">
                                     Filtres
                                 </button>
                             </h2>
-                            <div id="accordion-body" class="accordion-collapse collapse show" aria-labelledby="accordion-header"
+                            <div id="accordion-body" class="accordion-collapse collapse hidden" aria-labelledby="accordion-header"
                                  data-bs-parent="#accordion-1">
                                 <div class="accordion-body">
                                     <form method="get">

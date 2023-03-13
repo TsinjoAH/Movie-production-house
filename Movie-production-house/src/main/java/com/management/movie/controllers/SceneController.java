@@ -107,7 +107,7 @@ public class SceneController {
         return new ResponseEntity<>(sceneReturn, HttpStatus.OK);
     }
 
-    @GetMapping("/scenes")
+    @GetMapping(value={"","/scenes"})
     public ModelAndView listv2(SceneFilter sceneFilter, @RequestParam(required = false,defaultValue = "",value = "begin") @DateTimeFormat(pattern="HH:mm") String startHour,@RequestParam(required = false,defaultValue = "",value = "end") @DateTimeFormat(pattern="HH:mm") String endHour) throws Exception {
         ModelAndView modelAndView = new ModelAndView();
         Movie movie=new Movie();
