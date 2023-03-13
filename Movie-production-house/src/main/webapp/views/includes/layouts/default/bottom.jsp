@@ -1,6 +1,6 @@
                 </div>
             </div>
         </div>
-        <%@include file="../../scripts.jsp"%>
+        <%@include file="/views/includes/scripts.jsp"%>
     </body>
 </html>

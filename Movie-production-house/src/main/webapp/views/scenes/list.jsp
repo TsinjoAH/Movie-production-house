@@ -4,7 +4,7 @@
 <%@ page import="com.management.movie.models.scene.SceneReturn" %>
 <%@ page import="com.management.movie.models.scene.Scene" %>
 <%@ page import="com.management.movie.models.scene.SceneFilter" %>
-<%@include file="../includes/layouts/default/top.jsp"%>
+<%@include file="/views/includes/layouts/default/top.jsp"%>
 <%
     List<MovieSet> movieSets = (List<MovieSet>) request.getAttribute("movieSetList");
     List<MovieCharacter> characters = (List<MovieCharacter>) request.getAttribute("characterList");
@@ -117,7 +117,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for(Scene scene : sceneReturn.getSceneList()) {%>
+                            <% for(Scene scene : sceneReturn.getSceneList()) { %>
                             <tr>
                                 <td><%=scene.getSceneNumber()%></td>
                                 <td> - </td>
@@ -130,22 +130,16 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <% if(scene.getSceneStatus().getId() == 10) {
-                                        SceneFilter filter = sceneReturn.getSceneFilter();
-                                        String requestParam = "sceneNumber="+filter.getSceneNumber()+"&movieSet.id="+filter.getMovieSet().getId()+"&movieCharacter.id="+filter.getMovieCharacter().getId()+
-                                                "&begin="+filter.getStartHour()+"&end="+filter.getEndHour();
-                                        requestParam = requestParam .replaceAll("null", "");
-                                    %>
-                                        <a href="${pageContext.request.contextPath}/scenes/plan/<%= scene.getId() %>?<%= requestParam %>" >
+                                    <% if (scene.getSceneStatus().getId() == 10) { %>
+                                        <a href="${pageContext.request.contextPath}/scenes/plan/<%= scene.getId() %>?<%= scene.getPlanLink(sceneReturn.getSceneFilter()) %>" >
                                             Plannifier
                                         </a>
                                     <% } else { %>
                                         <%= scene.getSceneStatus().getName() %>
                                     <% } %>
                                 </td>
-                                <td>dddd</td>
                             </tr>
-                            <%}%>
+                            <% } %>
                             </tbody>
                         </table>
                         <!--end::table-->
@@ -158,7 +152,7 @@
         <!--end:content-->
     </div>
     <!--end::main-->
-    <%@include file="../includes/layouts/default/bottom.jsp"%>
+    <%@include file="/views/includes/layouts/default/bottom.jsp"%>
     <script>
         $("#estimated-time-picker-min").flatpickr({
             enableTime: true,
