@@ -1,9 +1,11 @@
 <%@ page import="com.management.movie.models.MovieSet" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.management.movie.models.scene.Scene" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Map" %>
 <%@include file="../includes/layouts/default/top.jsp"%>
 <%
-  List<MovieSet> movieSets = (List<MovieSet>) request.getAttribute("movieSets");
+  HashMap<Integer, MovieSet> movieSets = (HashMap<Integer, MovieSet>) request.getAttribute("movieSets");
   List<Scene> scenes = (List<Scene>) request.getAttribute("scenes");
   String error = (String) request.getAttribute("error");
 %>
@@ -93,6 +95,28 @@
               <input type="date" id="end-date" name="endDate" class="form-control" placeholder="Date fin">
             </div>
             <label class="mb-5">Plateaux disponibles :</label>
+            <% for (Map.Entry<Integer, MovieSet> set : movieSets.entrySet()
+            ) { %>
+              <div class="mb-5 row">
+                <div class="col-3">
+                  <input type="hidden" name="movieSets" value="<%= set.getKey()%>">
+                  <bold>  <%= set.getValue().getName() %>  </bold>
+                </div>
+                <div class="col-3">
+                  <div class="mb-5">
+                    <label>Date debut disponibilite :</label>
+                    <input type="datetime-local" name="minDates" class="form-control" placeholder="Date debut">
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="mb-5">
+                    <label>Date fin disponibilite :</label>
+                    <input type="datetime-local" name="maxDates" class="form-control" placeholder="Date fin">
+                  </div>
+                </div>
+              </div>
+            <% } %>
+
             <div id="data">
               <div class="form-group">
                 <div data-repeater-list="data">
@@ -104,9 +128,9 @@
                                 data-control="select2" data-placeholder="Plateau"
                                 data-allow-clear="true">
                           <option value="" >--Location--</option>
-                          <% for (MovieSet movieSet : movieSets
+                          <% for (Map.Entry<Integer, MovieSet> set : movieSets.entrySet()
                           ) { %>
-                          <option value="<%= movieSet.getId() %>" > <%= movieSet.getName() %> </option>
+                          <option value="<%= set.getKey() %>" > <%= set.getValue().getName() %> </option>
                           <% } %>
                         </select>
                       </div>

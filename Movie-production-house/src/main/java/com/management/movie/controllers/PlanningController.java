@@ -49,8 +49,9 @@ public class PlanningController {
 
     @GetMapping("planning/form")
     public ModelAndView getFormPlanning(ModelAndView modelAndView) {
-        modelAndView.addObject("movieSets", movieSetService.getAll());
-        modelAndView.addObject("scenes", sceneService.getOngoingPlanning());
+        List<Scene> scenes = sceneService.getOngoingPlanning();
+        modelAndView.addObject("movieSets", movieSetService.getMoviesets(scenes));
+        modelAndView.addObject("scenes", scenes);
         modelAndView.setViewName("movies/form-planning");
         return modelAndView;
     }
