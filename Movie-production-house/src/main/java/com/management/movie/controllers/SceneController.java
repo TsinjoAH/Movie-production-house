@@ -151,4 +151,9 @@ public class SceneController {
         sceneService.updateStatus(id, 10);
         return "redirect:/planning/form";
     }
+
+    @GetMapping("/data/scenes/list")
+    public ResponseEntity<?> listScene(){
+        return new ResponseEntity<>(sceneService.getNotPlannified(), HttpStatus.OK);
+    }
 }

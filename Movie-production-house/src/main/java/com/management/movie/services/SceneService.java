@@ -136,6 +136,21 @@ public class SceneService {
         return scene;
     }
 
+    public List<Scene> getNotPlannified(){
+        List<Scene> scenes = new ArrayList<>();
+        try(Session session = dao.getSessionFactory().openSession()){
+            Criteria criteria = session.createCriteria(Scene.class);
+            criteria.add(Restrictions.eq("sceneStatus.id", 10));
+            scenes = criteria.list();
+        }
+        try (Session session = dao.getSessionFactory().openSession()) {
+            for (Scene scene : scenes) {
+                scene.setSceneDetails(sceneDetailsService.findBySceneId(session, scene.getId()));
+            }
+            return scenes;
+        }
+    }
+
     public SceneForm getInputSceneForm(){
         SceneForm sceneForm = new SceneForm();
         sceneForm.setCharacters(dao.findAll(MovieCharacter.class));
