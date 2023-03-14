@@ -160,4 +160,10 @@ public class SceneController {
         sceneActor.setScenes(sceneList);
         return new ResponseEntity<>(sceneActor, HttpStatus.OK);
     }
+
+    @GetMapping("/data/movieSet/list")
+    public ResponseEntity<?> listMovieSet() {
+        List<MovieSet> movieSetList=movieSetService.getAll();
+        return new ResponseEntity<>(movieSetList, HttpStatus.OK);
+    }
 }
