@@ -59,6 +59,9 @@ public class PlanningController {
     @PostMapping("/planning/suggestion")
     public ModelAndView getPlanning(ModelAndView modelAndView, @ModelAttribute PlanningSuggestionInputs inputs, HttpSession session) {
         try {
+            for(Integer sceneId:inputs.getSceneIds()){
+                sceneService.updateStatus(sceneId, 20);
+            }
             PlanningSuggestionCriteria criteria = inputs.getCriteria();
             int movieId = 1;
             Planning planning = movieService.getPlanning(movieId, criteria);

@@ -17,6 +17,8 @@ public class PlanningSuggestionInputs {
     private List<String> maxDates;
     private List<String> minDates;
 
+    private List<Integer> sceneIds;
+
     public PlanningSuggestionCriteria getCriteria() throws Exception{
         PlanningSuggestionCriteria criteria = new PlanningSuggestionCriteria(beginDate, endDate, getMovieSets());
         return criteria;
