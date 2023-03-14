@@ -3,10 +3,7 @@ package com.management.movie.controllers;
 import com.management.movie.models.Movie;
 import com.management.movie.models.MovieCharacter;
 import com.management.movie.models.MovieSet;
-import com.management.movie.models.scene.Scene;
-import com.management.movie.models.scene.SceneFilter;
-import com.management.movie.models.scene.SceneReturn;
-import com.management.movie.models.scene.SceneStatus;
+import com.management.movie.models.scene.*;
 import com.management.movie.models.scene.view.SceneInput;
 import com.management.movie.services.CharacterService;
 import com.management.movie.services.MovieSetService;
@@ -153,7 +150,14 @@ public class SceneController {
     }
 
     @GetMapping("/data/scenes/list")
-    public ResponseEntity<?> listScene(){
-        return new ResponseEntity<>(sceneService.getNotPlannified(), HttpStatus.OK);
+    public ResponseEntity<?> listScene() throws Exception {
+        List<Scene> sceneList=sceneService.getNotPlannified();
+        Movie movie=new Movie();
+        movie.setId(1);
+        List<MovieCharacter> characterList=characterService.getByMovie(movie);
+        SceneActor sceneActor=new SceneActor();
+        sceneActor.setActors(MovieCharacter.characterList(characterList));
+        sceneActor.setScenes(sceneList);
+        return new ResponseEntity<>(sceneActor, HttpStatus.OK);
     }
 }
